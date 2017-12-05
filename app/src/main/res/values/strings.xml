@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Basic Fit</string>
+    <string name="authority">com.example.matthew.basicfit.AlimentContentProvider</string>
+</resources>
