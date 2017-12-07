@@ -2,7 +2,9 @@ package com.example.matthew.basicfit;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -31,6 +33,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SharedPreferences pref=getSharedPreferences("save", Context.MODE_PRIVATE);
+        boolean hasSaved = pref.getBoolean("hasSaved", false);
+
+        if(hasSaved)
+        {
+            System.out.println("ok");
+        }
+
+    }
 
     public void b_aliment(View view) {
         Intent iii = new Intent(getApplicationContext(),Ajout_aliment.class);
