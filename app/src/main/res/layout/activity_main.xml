@@ -9,6 +9,7 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/textnom"
         android:layout_width="match_parent"
         android:layout_height="42dp"
         android:text="Hello World!"
