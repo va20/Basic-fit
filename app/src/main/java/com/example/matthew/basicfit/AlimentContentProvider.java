@@ -27,12 +27,27 @@ public class AlimentContentProvider extends ContentProvider {
     private final static int ALIMENT = 2;
     private final static int CALORIES = 3;
     private final static int ALIMENT_ID = 4;
+    private final static int MATIN = 5;
+    private final static int MATIN_ALIMENT = 6;
+    private final static int MATIN_DATE = 7;
+    private final static int MIDI = 8;
+    private final static int MIDI_ALIMENT = 9;
+    private final static int MIDI_DATE = 10;
+    private final static int SOIR = 11;
+    private final static int SOIR_ALIMENT = 12;
+    private final static int SOIR_DATE = 13;
 
-    private final static String STRING_ALIMENT = "aliment";
-    private final static String STRING_CALORIES = "calorie";
-    private final static String STRING_TABLE_ALIMENT = "table_aliment";
 
+    final static String STRING_ALIMENT = "aliment";
+    final static String STRING_MATIN = "matin";
+    final static String STRING_MIDI = "midi";
+    final static String STRING_SOIR = "soir";
+    final static String STRING_CALORIES = "calorie";
 
+    final static String STRING_TABLE_ALIMENT = "table_aliment";
+    final static String STRING_TABLE_MATIN = "table_matin";
+    final static String STRING_TABLE_MIDI = "table_midi";
+    final static String STRING_TABLE_SOIR = "table_soir";
 
     private static final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
 
@@ -41,8 +56,15 @@ public class AlimentContentProvider extends ContentProvider {
         matcher.addURI(authority, "aliment", ALIMENT);
         matcher.addURI(authority, "aliment/calories", CALORIES);
         matcher.addURI(authority, "aliment/#", ALIMENT_ID);
-
-
+        matcher.addURI(authority, "matin", MATIN);
+        matcher.addURI(authority, "matin/aliment", MATIN_ALIMENT);
+        matcher.addURI(authority, "matin/date", MATIN_DATE);
+        matcher.addURI(authority, "midi", MIDI);
+        matcher.addURI(authority, "midi/aliment", MIDI_ALIMENT);
+        matcher.addURI(authority, "midi/date", MIDI_DATE);
+        matcher.addURI(authority,"soir",SOIR);
+        matcher.addURI(authority,"soir/aliment",SOIR_ALIMENT);
+        matcher.addURI(authority,"soir/date",SOIR_DATE);
     }
 
     public AlimentContentProvider() {
@@ -68,6 +90,18 @@ public class AlimentContentProvider extends ContentProvider {
                 cursor = db.query(STRING_TABLE_ALIMENT,strings,s,strings1,null,null,s1 );
                 break;
 
+            case MATIN:
+                cursor = db.query(STRING_TABLE_MATIN, strings, s, strings1, null, null, s1);
+                break;
+
+            case MIDI:
+                cursor = db.query(STRING_TABLE_MIDI, strings, s, strings1, null, null, s1);
+                break;
+
+            case SOIR:
+                cursor = db.query(STRING_TABLE_SOIR, strings, s, strings1, null, null, s1);
+                break;
+
             default:
                 Log.d("Uri provider =", uri.toString());
                 throw new UnsupportedOperationException("this query is not yet implemented  " +
@@ -88,15 +122,30 @@ public class AlimentContentProvider extends ContentProvider {
     public Uri insert(Uri uri,ContentValues contentValues) {
         SQLiteDatabase db = helper.getWritableDatabase();
         int code = matcher.match(uri);
-        Log.d(LOG, "insert uri=" + uri.toString());
+        // Log.d(LOG, "insert uri=" + uri.toString());
         long id;
         String path;
-        Log.d("DEBUG:", Integer.toString(code));
         switch (code) {
             case ALIMENT:
                 id = db.insert(STRING_TABLE_ALIMENT, null, contentValues);
                 path = STRING_ALIMENT;
                 break;
+
+            case MATIN:
+                id = db.insert(STRING_TABLE_MATIN, null, contentValues);
+                path = STRING_MATIN;
+                break;
+
+            case MIDI:
+                id = db.insert(STRING_TABLE_MIDI, null, contentValues);
+                path = STRING_MIDI;
+                break;
+
+            case SOIR:
+                id = db.insert(STRING_TABLE_SOIR, null, contentValues);
+                path = STRING_SOIR;
+                break;
+
             default:
                 throw new UnsupportedOperationException("this insert not yet implemented");
         }

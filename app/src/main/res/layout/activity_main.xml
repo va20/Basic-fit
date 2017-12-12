@@ -45,8 +45,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="b_2"
-            android:text="Button" />
+            android:onClick="b_manger"
+            android:text="AJOUTER ALIMENT AU REPAS" />
     </LinearLayout>
 
 </LinearLayout>

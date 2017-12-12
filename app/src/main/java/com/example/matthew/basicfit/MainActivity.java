@@ -56,6 +56,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(iii);
     }
 
+    public void b_manger(View view) {
+        Intent iii = new Intent(getApplicationContext(), Ajout_aliment_repas.class);
+        startActivity(iii);
+    }
+
     public void importCvs(View view) {
 
         AssetManager assetManager = getAssets();

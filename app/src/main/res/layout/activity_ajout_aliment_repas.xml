@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.matthew.basicfit.Ajout_aliment_repas">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Aliment:" />
+
+        <EditText
+            android:id="@+id/b_aliment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <RadioButton android:id="@+id/radio_matin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="matin"
+                />
+
+
+            <RadioButton android:id="@+id/radio_midi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="midi"
+                />
+
+
+            <RadioButton
+                android:id="@+id/radio_soir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="soir" />
+        </RadioGroup>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:id="@+id/b_chercher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="ok"
+            android:text="CHERCHER ALIMENT" />
+
+        <Button
+            android:id="@+id/b_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="ok"
+            android:text="AJOUTER AU REPAS" />
+    </LinearLayout>
+
+</LinearLayout>
