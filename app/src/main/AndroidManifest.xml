@@ -23,7 +23,8 @@
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".Ajout_aliment"></activity>
+        <activity android:name=".Ajout_aliment" />
+        <activity android:name=".Ajout_aliment_repas"></activity>
     </application>
 
 </manifest>

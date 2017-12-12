@@ -1,6 +1,5 @@
 package com.example.matthew.basicfit;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -15,10 +14,18 @@ public class Base extends SQLiteOpenHelper {
 
     private final static String DB_NAME = "basic_fat.db";
     private final static String DB_TABLE_ALIMENT = "table_aliment";
+    private final static String DB_TABLE_MOI = "table_moi";
+    private final static String DB_TABLE_MATIN = "table_matin";
+    private final static String DB_TABLE_MIDI = "table_midi";
+    private final static String DB_TABLE_SOIR = "table_soir";
 
     private final static int VERSION = 3;
 
-    private final static String CREATE_TABLE = "create table " + DB_TABLE_ALIMENT + "(" + "aliment string, " + "calories integer, _id integer primary key );";
+    private final static String CREATE_TABLE_ALIMENT = "create table " + DB_TABLE_ALIMENT + "(" + "aliment string, " + "calories integer, _id integer primary key );";
+    private final static String CREATE_TABLE_MOI = "create table " + DB_TABLE_MOI + "(" + "date datetime, " + "calorie integer );";
+    private final static String CREATE_TABLE_ALIMENT_MATIN = "create table " + DB_TABLE_MATIN + "(" + "date datetime, " + "aliment string);";
+    private final static String CREATE_TABLE_ALIMENT_MIDI = "create table " + DB_TABLE_MIDI + "(" + "date datetime, " + "aliment string);";
+    private final static String CREATE_TABLE_ALIMENT_SOIR = "create table " + DB_TABLE_SOIR + "(" + "date datetime, " + "aliment string);";
 
     public static Base getInstance(Context context) {
         if (instance == null) {
@@ -33,7 +40,11 @@ public class Base extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL(CREATE_TABLE);
+        sqLiteDatabase.execSQL(CREATE_TABLE_ALIMENT);
+        sqLiteDatabase.execSQL(CREATE_TABLE_MOI);
+        sqLiteDatabase.execSQL(CREATE_TABLE_ALIMENT_MATIN);
+        sqLiteDatabase.execSQL(CREATE_TABLE_ALIMENT_MIDI);
+        sqLiteDatabase.execSQL(CREATE_TABLE_ALIMENT_SOIR);
     }
 
     @Override

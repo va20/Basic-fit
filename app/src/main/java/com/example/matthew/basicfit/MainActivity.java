@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 
 
 import java.io.BufferedReader;
@@ -34,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void b_aliment(View view) {
         Intent iii = new Intent(getApplicationContext(),Ajout_aliment.class);
+        startActivity(iii);
+    }
+
+    public void b_manger(View view) {
+        Intent iii = new Intent(getApplicationContext(), Ajout_aliment_repas.class);
         startActivity(iii);
     }
 

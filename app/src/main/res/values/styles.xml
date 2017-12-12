@@ -8,4 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <string name="matin">Matin</string>
+    <string name="midi">Midi</string>
+    <string name="soir">Soir</string>
+
 </resources>

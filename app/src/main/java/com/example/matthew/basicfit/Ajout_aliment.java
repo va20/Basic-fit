@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -26,6 +27,10 @@ public class Ajout_aliment extends AppCompatActivity {
 
     }
 
+    /*
+    * La fonction "ok" sert à ajouter un aliment dans la base de donnée.
+     */
+
     public void ok(View view) {
 
         ContentResolver resolver = getContentResolver();
@@ -38,7 +43,8 @@ public class Ajout_aliment extends AppCompatActivity {
 
         Uri uri = builder.build();
 
-        if (!et_aliment.getText().toString().equals("") && !et_calories.getText().toString().equals("")) {
+
+        if (!et_aliment.getText().toString().equals("") && !et_calories.getText().toString().equals("")) { /* Check si l'EditText est vide ou pas */
             String nom_aliment = et_aliment.getText().toString();
             int nb_calories = Integer.parseInt(et_calories.getText().toString());
 
@@ -46,10 +52,11 @@ public class Ajout_aliment extends AppCompatActivity {
             values.put("calories", nb_calories);
 
             uri = resolver.insert(uri, values);
-            Toast.makeText(getApplicationContext(), "l'aliment a bien été rajouté", Toast.LENGTH_SHORT);
+            Toast.makeText(getApplicationContext(), "l'aliment a bien été rajouté", Toast.LENGTH_SHORT).show();
         }
         else {
-            Toast.makeText(getApplicationContext(), "Les champs ne sont pas correctement remplis", Toast.LENGTH_SHORT);
+            Log.d("TOAST: ", "DANS LE ELSE");
+            Toast.makeText(getApplicationContext(), "Les champs ne sont pas correctement remplis", Toast.LENGTH_SHORT).show();
         }
 
     }
