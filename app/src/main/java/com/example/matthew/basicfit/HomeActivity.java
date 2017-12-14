@@ -27,7 +27,6 @@ public class HomeActivity extends AppCompatActivity {
                     intent_settings();
                     return true;
                 case R.id.home:
-                    intent_home();
                     return true;
             }
             return false;
@@ -65,21 +64,12 @@ public class HomeActivity extends AppCompatActivity {
         intent = new Intent();
         intent.setClass(this,Ajout_aliment_repas.class);
         this.startActivity(this.intent);
-        HomeActivity.this.finish();
     }
 
     public void intent_settings(){
         intent = new Intent();
         intent.setClass(this,ProfileActivity.class);
         this.startActivity(this.intent);
-        HomeActivity.this.finish();
-    }
-
-    public void intent_home(){
-        intent = new Intent();
-        intent.setClass(this,HomeActivity.class);
-        this.startActivity(this.intent);
-        HomeActivity.this.finish();
     }
 
 }

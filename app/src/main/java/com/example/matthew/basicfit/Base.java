@@ -34,7 +34,7 @@ public class Base extends SQLiteOpenHelper {
         }
         return instance;
     }
-    
+
     private Base(Context context) {
         super(context, DB_NAME, null, VERSION);
     }

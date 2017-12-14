@@ -74,7 +74,56 @@
 
 
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/objectif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mon objectif : "
+                tools:layout_editor_absoluteX="35dp"
+                tools:layout_editor_absoluteY="196dp"
+                tools:ignore="MissingConstraints" />
+            <ViewSwitcher
+                android:id="@+id/switch_edit_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
+                <TextView
+                    android:id="@+id/nb_cal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:inputType="number"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                <EditText
+                    android:id="@+id/change_nb_calories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    />
+
+            </ViewSwitcher>
+
+            <TextView
+                android:id="@+id/calParJour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="  Kcal/Jour"
+                tools:layout_editor_absoluteX="35dp"
+                tools:layout_editor_absoluteY="196dp"
+                tools:ignore="MissingConstraints" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/modif_objectif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Modifier mon objectif"
+            android:onClick="modifier"
+            />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

@@ -2,7 +2,9 @@ package com.example.matthew.basicfit;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -16,6 +18,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewSwitcher;
+
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -28,6 +33,7 @@ public class ProfileActivity extends AppCompatActivity {
     private Button import_cvs;
     private Button ajouter;
     private TextView calories;
+    private TextView objectif;
     private EditText bdd_aliment;
     private EditText b_calories;
 
@@ -54,12 +60,17 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        authority = getResources().getString(R.string.authority);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         this.import_cvs = (Button) findViewById(R.id.b_import);
         this.ajouter = (Button) findViewById(R.id.b_ok);
         this.bdd_aliment = (EditText) findViewById(R.id.bdd_aliment);
         this.b_calories = (EditText) findViewById(R.id.b_calorie);
+        this.objectif = (TextView) findViewById(R.id.nb_cal);
+        SharedPreferences pref=getSharedPreferences("save", Context.MODE_PRIVATE);
+        int nb_calories = pref.getInt("caloriesSaved",0);
+        this.objectif.setText(Integer.toString(nb_calories));
 
 
     }
@@ -151,17 +162,39 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
+    public void modifier(View view){
+        ViewSwitcher viewSwitcher = (ViewSwitcher) findViewById(R.id.switch_edit_text);
+        EditText change_nb_calories = (EditText) findViewById(R.id.change_nb_calories);
+        TextView nb_cal = (TextView) findViewById(R.id.nb_cal);
+        if(viewSwitcher.getCurrentView()==change_nb_calories){
+            if(!change_nb_calories.getText().toString().equals("")){
+                int cal_tmp=Integer.parseInt(change_nb_calories.getText().toString());
+                nb_cal.setText(change_nb_calories.getText().toString());
+                SharedPreferences prefs = getSharedPreferences("save", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putInt("caloriesSaved",cal_tmp);
+                editor.apply();
+                viewSwitcher.showPrevious();
+            }
+            else{
+                viewSwitcher.showPrevious();
+            }
+        }
+        else if(viewSwitcher.getCurrentView()==nb_cal){
+            viewSwitcher.showNext();
+        }
+    }
+
     public void intent_add(){
         Intent intent = new Intent();
-        intent.setClass(this,Ajout_aliment.class);
+        intent.setClass(this,Ajout_aliment_repas.class);
         this.startActivity(intent);
-        ProfileActivity.this.finish();
+
     }
 
     public void intent_home(){
         Intent intent= new Intent();
         intent.setClass(this,HomeActivity.class);
         this.startActivity(intent);
-        ProfileActivity.this.finish();
     }
 }
