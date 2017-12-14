@@ -33,9 +33,11 @@ public class Ajout_aliment_repas extends AppCompatActivity {
     private EditText ed_add;
     private String authority;
     private EditText et_aliment, et_gramme;
+    private ListView listView;
     private Button b_chercher, b_ajouter;
     private ListView list_aliment;
     private RadioButton rb_matin, rb_midi, rb_soir;
+    private ListAdapter listAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,8 @@ public class Ajout_aliment_repas extends AppCompatActivity {
         setContentView(R.layout.activity_ajout_aliment_repas);
 
         authority = getResources().getString(R.string.authority);
+
+        listView = (ListView) findViewById(R.id.list);
 
         et_aliment = (EditText) findViewById(R.id.et_aliment);
         et_gramme = (EditText) findViewById(R.id.et_gramme);
@@ -226,8 +230,12 @@ public class Ajout_aliment_repas extends AppCompatActivity {
                 mot_aliment = "";
 
                 String[] projection = {AlimentContentProvider.STRING_ID,AlimentContentProvider.STRING_ALIMENT,AlimentContentProvider.STRING_CALORIES};
+
+
                 if(!et_aliment.getText().toString().equals("")) {
                     mot_aliment = et_aliment.getEditableText().toString();
+
+                    String[] projection = {AlimentContentProvider.STRING_ALIMENT_ID,AlimentContentProvider.STRING_ALIMENT,AlimentContentProvider.STRING_CALORIES};
 
                     builder = new Uri.Builder();
 
@@ -246,6 +254,9 @@ public class Ajout_aliment_repas extends AppCompatActivity {
                     if (cursor == null )
                         Toast.makeText(getApplicationContext(), "Cursor NULL \n"+mot_aliment, Toast.LENGTH_SHORT).show();
                     else {
+
+                        listAdapter = new SimpleCursorAdapter(this, android.R.layout.two_line_list_item, cursor, new String[]{AlimentContentProvider.STRING_ALIMENT, AlimentContentProvider.STRING_CALORIES}, new int[]{android.R.id.text1, android.R.id.text2},2);
+                        listView.setAdapter(listAdapter);
                         String query = "";
                         while (cursor.moveToNext()) {
                             query += cursor.getString(cursor.getColumnIndex(AlimentContentProvider.STRING_ALIMENT))+"\n";

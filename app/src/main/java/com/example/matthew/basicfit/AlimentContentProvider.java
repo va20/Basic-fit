@@ -48,6 +48,7 @@ public class AlimentContentProvider extends ContentProvider {
     final static String STRING_SOIR = "soir";
     final static String STRING_CALORIES = "calories";
     final static String STRING_ID = "_id";
+    final static String STRING_ALIMENT_ID = "_id";
 
     final static String STRING_TABLE_ALIMENT = "table_aliment";
     final static String STRING_TABLE_MATIN = "table_matin";
