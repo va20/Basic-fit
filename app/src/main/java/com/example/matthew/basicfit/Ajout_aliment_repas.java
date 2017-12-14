@@ -10,7 +10,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -18,9 +21,10 @@ import java.util.Date;
 
 public class Ajout_aliment_repas extends AppCompatActivity {
 
-    private String authority;
+    private static String authority;
     private EditText ed_add;
     private Button b_chercher, b_ajouter;
+    private ListView list_aliment;
     private RadioButton rb_matin, rb_midi, rb_soir;
 
     @Override
@@ -38,9 +42,11 @@ public class Ajout_aliment_repas extends AppCompatActivity {
 
         b_chercher = (Button) findViewById(R.id.b_chercher);
         b_ajouter = (Button) findViewById(R.id.b_ok);
+
+        this.list_aliment= (ListView) findViewById(R.id.listview_aliment);
+
+
     }
-
-
     /*
     * Action des buttons de l'activité Ajout_aliment_repas.
     *
@@ -99,7 +105,7 @@ public class Ajout_aliment_repas extends AppCompatActivity {
 
                 String mot_aliment = ed_add.getEditableText().toString();
 
-                String[] projection = {AlimentContentProvider.STRING_ALIMENT};
+                String[] projection = {AlimentContentProvider.STRING_ALIMENT,AlimentContentProvider.STRING_CALORIES};
 
                 builder = new Uri.Builder();
 
@@ -108,7 +114,9 @@ public class Ajout_aliment_repas extends AppCompatActivity {
                 uri = builder.build();
 
                 Cursor cursor = contentResolver.query(uri, projection, "aliment LIKE ?", new String[]{mot_aliment+"%"}, null);
+                SimpleCursorAdapter adapter=new SimpleCursorAdapter(this,android.R.layout.two_line_list_item,cursor,new String[]{"aliment","calories"},new int[]{android.R.id.text1},0);
 
+                list_aliment.setAdapter(adapter);
 
                 if (cursor == null )
                     Toast.makeText(getApplicationContext(), "Cursor NULL \n"+mot_aliment, Toast.LENGTH_SHORT).show();

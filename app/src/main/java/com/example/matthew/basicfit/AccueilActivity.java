@@ -40,7 +40,7 @@ public class AccueilActivity extends AppCompatActivity {
         if(hasSaved)
         {
             Intent intent = new Intent();
-            intent.setClass(this, MainActivity.class);
+            intent.setClass(this, HomeActivity.class);
             startActivity(intent);
             AccueilActivity.this.finish();
         }
@@ -57,10 +57,9 @@ public class AccueilActivity extends AppCompatActivity {
             editor.putInt("caloriesSaved",Integer.parseInt(nb_cal.getText().toString()));
             editor.apply();
             Intent intent = new Intent();
-            intent.setClass(this, MainActivity.class);
+            intent.setClass(this, HomeActivity.class);
             startActivity(intent);
             AccueilActivity.this.finish();
         }
-
     }
 }

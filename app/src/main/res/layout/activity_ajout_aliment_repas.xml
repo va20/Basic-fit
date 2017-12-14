@@ -60,24 +60,34 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
 
         <Button
             android:id="@+id/b_chercher"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:onClick="ok"
             android:text="CHERCHER ALIMENT" />
 
         <Button
             android:id="@+id/b_ok"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:onClick="ok"
             android:text="AJOUTER AU REPAS" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ListView
+            android:id="@+id/listview_aliment"
+            android:layout_width="match_parent"
+            android:layout_height="395dp" />
     </LinearLayout>
 
 </LinearLayout>

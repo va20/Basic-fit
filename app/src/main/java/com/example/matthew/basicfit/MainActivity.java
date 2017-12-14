@@ -7,9 +7,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -22,32 +25,36 @@ import java.io.InputStreamReader;
 
 
 public class MainActivity extends AppCompatActivity {
-    private TextView nom;
     private String authority;
+
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.add_aliment:
+                    //intent_add();
+                    return true;
+                case R.id.settings:
+                    intent_settings();
+                    return true;
+                case R.id.home:
+                    intent_home();
+                    return true;
+            }
+            return false;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.nom = (TextView) findViewById(R.id.textnom);
         authority = getResources().getString(R.string.authority);
-        SharedPreferences pref=getSharedPreferences("save", Context.MODE_PRIVATE);
-        String nomSaved = pref.getString("nomSaved","");
-
-        nom.setText("Hey "+nomSaved+" !");
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        SharedPreferences pref=getSharedPreferences("save", Context.MODE_PRIVATE);
-        boolean hasSaved = pref.getBoolean("hasSaved", false);
-
-        if(hasSaved)
-        {
-            System.out.println("ok");
-        }
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
     }
 
@@ -111,5 +118,27 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    /*public void intent_add(){
+        Intent intent = new Intent();
+        intent.setClass(this,Ajout_aliment.class);
+        this.startActivity(intent);
+        MainActivity.this.finish();
+    }*/
+
+    public void intent_settings(){
+        Intent intent = new Intent();
+        intent.setClass(this,ProfileActivity.class);
+        this.startActivity(intent);
+        MainActivity.this.finish();
+    }
+
+    public void intent_home(){
+        Intent intent= new Intent();
+        intent.setClass(this,HomeActivity.class);
+        this.startActivity(intent);
+        MainActivity.this.finish();
     }
 }
