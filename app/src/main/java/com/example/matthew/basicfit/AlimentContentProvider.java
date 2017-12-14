@@ -30,24 +30,29 @@ public class AlimentContentProvider extends ContentProvider {
     private final static int MATIN = 5;
     private final static int MATIN_ALIMENT = 6;
     private final static int MATIN_DATE = 7;
-    private final static int MIDI = 8;
-    private final static int MIDI_ALIMENT = 9;
-    private final static int MIDI_DATE = 10;
-    private final static int SOIR = 11;
-    private final static int SOIR_ALIMENT = 12;
-    private final static int SOIR_DATE = 13;
+    private final static int MATIN_CALORIES = 8;
+    private final static int MIDI = 9;
+    private final static int MIDI_ALIMENT = 10;
+    private final static int MIDI_DATE = 11;
+    private final static int MIDI_CALORIES = 12;
+    private final static int SOIR = 13;
+    private final static int SOIR_ALIMENT = 14;
+    private final static int SOIR_DATE = 15;
+    private final static int SOIR_CALORIES = 16;
+    private final static int MOI_CALORIE = 17;
 
 
     final static String STRING_ALIMENT = "aliment";
     final static String STRING_MATIN = "matin";
     final static String STRING_MIDI = "midi";
     final static String STRING_SOIR = "soir";
-    final static String STRING_CALORIES = "calorie";
+    final static String STRING_CALORIES = "calories";
 
     final static String STRING_TABLE_ALIMENT = "table_aliment";
     final static String STRING_TABLE_MATIN = "table_matin";
     final static String STRING_TABLE_MIDI = "table_midi";
     final static String STRING_TABLE_SOIR = "table_soir";
+    final static String STRING_TABLE_MOI = "table_soir";
 
     private static final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
 
@@ -59,12 +64,16 @@ public class AlimentContentProvider extends ContentProvider {
         matcher.addURI(authority, "matin", MATIN);
         matcher.addURI(authority, "matin/aliment", MATIN_ALIMENT);
         matcher.addURI(authority, "matin/date", MATIN_DATE);
+        matcher.addURI(authority, "matin/calories", MATIN_CALORIES);
         matcher.addURI(authority, "midi", MIDI);
         matcher.addURI(authority, "midi/aliment", MIDI_ALIMENT);
         matcher.addURI(authority, "midi/date", MIDI_DATE);
+        matcher.addURI(authority, "midi/calories", MIDI_CALORIES);
         matcher.addURI(authority,"soir",SOIR);
         matcher.addURI(authority,"soir/aliment",SOIR_ALIMENT);
         matcher.addURI(authority,"soir/date",SOIR_DATE);
+        matcher.addURI(authority,"soir/calories",SOIR_CALORIES);
+        matcher.addURI(authority, "moi/calorie", MOI_CALORIE);
     }
 
     public AlimentContentProvider() {
@@ -164,9 +173,14 @@ public class AlimentContentProvider extends ContentProvider {
         long id;
         switch (code) {
             case ALIMENT:
-                id = ContentUris.parseId(uri);
-                i = db.delete(STRING_TABLE_ALIMENT, "_id=" + id, null);
+                i = db.delete(STRING_TABLE_ALIMENT, s, strings);
                 break;
+            case MATIN:
+                i = db.delete(STRING_TABLE_MATIN, s, strings);
+            case MIDI:
+                i = db.delete(STRING_TABLE_MIDI,  s, strings);
+            case SOIR:
+                i = db.delete(STRING_TABLE_SOIR,  s, strings);
             default:
                 throw new UnsupportedOperationException("Uri non reconnu");
         }
@@ -175,6 +189,17 @@ public class AlimentContentProvider extends ContentProvider {
 
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable String s, @Nullable String[] strings) {
-        return 0;
+        SQLiteDatabase db = helper.getWritableDatabase();
+        int code = matcher.match(uri);
+        int i;
+        long id;
+        switch (code) {
+            case CALORIES:
+                i = db.update(STRING_TABLE_MOI, contentValues, s, strings);
+                break;
+            default:
+                throw new UnsupportedOperationException("Pas encore implementé");
+        }
+        return i;
     }
 }

@@ -27,6 +27,8 @@ import java.io.InputStreamReader;
 public class MainActivity extends AppCompatActivity {
     private String authority;
 
+    private static String authority;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {

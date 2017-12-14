@@ -1,6 +1,7 @@
 package com.example.matthew.basicfit;
 
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
@@ -19,10 +20,20 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
+/*
+*
+* TODO: - Faire la fonction calcule de calories (utiliser les calories du retour de la requête).
+* TODO: - Retirer les farines de sarrasin par les vraies valeur.
+*
+ */
+
 public class Ajout_aliment_repas extends AppCompatActivity {
 
     private static String authority;
     private EditText ed_add;
+    private String authority;
+    private EditText et_aliment, et_gramme;
     private Button b_chercher, b_ajouter;
     private ListView list_aliment;
     private RadioButton rb_matin, rb_midi, rb_soir;
@@ -34,7 +45,9 @@ public class Ajout_aliment_repas extends AppCompatActivity {
 
         authority = getResources().getString(R.string.authority);
 
-        ed_add = (EditText) findViewById(R.id.b_aliment);
+        et_aliment = (EditText) findViewById(R.id.et_aliment);
+        et_gramme = (EditText) findViewById(R.id.et_gramme);
+
 
         rb_matin = (RadioButton) findViewById(R.id.radio_matin);
         rb_midi = (RadioButton) findViewById(R.id.radio_midi);
@@ -44,6 +57,84 @@ public class Ajout_aliment_repas extends AppCompatActivity {
         b_ajouter = (Button) findViewById(R.id.b_ok);
 
         this.list_aliment= (ListView) findViewById(R.id.listview_aliment);
+    /*
+    * Calcul le nombre de calories pour 100g dans l'activité acitivty_ajout_aliment_repas.xml
+    * @param gramme nombre de gramme
+    * @return nombre de calories pour 100g
+     */
+
+    public int calcul_calories(int gramme) {
+        return 0;
+    }
+
+
+    /*
+    * Check si les EditText sont vides
+    * @return boolean
+     */
+
+    private boolean checkEditText() {
+        return !et_aliment.getText().toString().equals("") && !et_gramme.getText().toString().equals("");
+    }
+
+
+    /*
+    * Check si le string en parametre est un chiffre
+    * @param str string representant un chiffre
+    * @return boolean si le string represente un int
+    *
+     */
+    public static boolean isNumeric(String str) {
+        try
+        {
+            double d = Double.parseDouble(str);
+        }
+        catch(NumberFormatException nfe)
+        {
+            return false;
+        }
+        return true;
+    }
+
+
+    /*
+    * Retourne le nombre de calorie d'un aliment passé en parametre
+    * @param aliment Nom de l'aliment
+    * @return le nombre de calorie de l'aliment
+    *
+     */
+
+    public int getCalorie(String aliment) {
+
+        ContentResolver  contentResolver = getContentResolver();
+
+        Uri.Builder builder = new Uri.Builder();
+
+        builder.scheme("content").authority(authority).appendPath("aliment");
+
+        Uri uri = builder.build();
+
+        Cursor cursor = contentResolver.query(uri, new String[]{AlimentContentProvider.STRING_CALORIES}, "aliment = ?", new String[]{aliment},null);
+
+        String query = "";
+
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                query = cursor.getString(cursor.getColumnIndex(AlimentContentProvider.STRING_CALORIES));
+            }
+
+            if (isNumeric(query)) {
+                return Integer.parseInt(query);
+            }
+            else {
+                return 0;
+            }
+        }
+        else {
+            return 0;
+        }
+    }
+
 
 
     }
@@ -64,69 +155,110 @@ public class Ajout_aliment_repas extends AppCompatActivity {
 
         Uri.Builder builder;
 
+        Uri uri;
+
         ContentValues contentValues = new ContentValues();
 
         switch(view.getId()){
             case R.id.b_ok:
-                String aliment = ed_add.getEditableText().toString();
+                String mot_aliment = "";
 
-                String repas;
+                if(checkEditText()) {
+                    mot_aliment = et_aliment.getEditableText().toString();
 
-                if (rb_matin.isChecked()) {
-                    repas = "matin";
-                } else if (rb_midi.isChecked()) {
-                    repas = "midi";
-                }
-                else {
-                    repas = "soir";
-                }
+                    String repas;
 
-                builder = new Uri.Builder();
+                    if (rb_matin.isChecked()) {
+                        repas = "matin";
+                    } else if (rb_midi.isChecked()) {
+                        repas = "midi";
+                    }
+                    else {
+                        repas = "soir";
+                    }
+
+                    builder = new Uri.Builder();
 
                 /*
                 * Il faudra prendre un aliment de la listView pour le rentrer dans la base de donnée.
                  */
 
-                builder.scheme("content").authority(authority).appendPath(repas).build();
+                    builder.scheme("content").authority(authority).appendPath(repas).build();
 
-                Uri uri = builder.build();
+                    uri = builder.build();
 
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Date date = new Date();
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    Date date = new Date();
 
-                contentValues.put("date",dateFormat.format(date));
-                contentValues.put("aliment", "Farine de sarrasin");
+                    int grammes = 0;
 
-                uri = contentResolver.insert(uri,contentValues);
+                    String string_gramme = et_gramme.getText().toString();
+
+                    if (isNumeric(string_gramme)) {
+                       grammes  = calcul_calories(Integer.parseInt(string_gramme));
+
+                        contentValues.put("date",dateFormat.format(date));
+                        contentValues.put("aliment", "Farine de sarrasin");
+                        contentValues.put("calories", grammes);
+
+                        uri = contentResolver.insert(uri,contentValues);
+
+                        builder.scheme("content").authority(authority).appendPath("moi").build();
+
+                        contentValues = new ContentValues();
+
+                        int new_grammes = grammes + getCalorie("Farine de sarrasin"); // A RETIRER
+
+                        contentValues.put("calories", new_grammes);
+
+                        contentResolver.update(uri, contentValues, "calories = ?", new String[]{"calories"});
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "vous n'avez pas rentré une valeur correct", Toast.LENGTH_SHORT);
+                    }
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Vous devez rentrer un aliment", Toast.LENGTH_SHORT);
+                }
+
 
                 break;
 
             case R.id.b_chercher:
 
-                String mot_aliment = ed_add.getEditableText().toString();
+                mot_aliment = "";
 
                 String[] projection = {AlimentContentProvider.STRING_ALIMENT,AlimentContentProvider.STRING_CALORIES};
+                if(!et_aliment.getText().toString().equals("")) {
+                    mot_aliment = et_aliment.getEditableText().toString();
 
-                builder = new Uri.Builder();
+                    String[] projection = {AlimentContentProvider.STRING_ALIMENT,AlimentContentProvider.STRING_CALORIES};
 
-                builder.scheme("content").authority(authority).appendPath("aliment").build();
+                    builder = new Uri.Builder();
 
-                uri = builder.build();
+                    builder.scheme("content").authority(authority).appendPath("aliment").build();
+
+                    uri = builder.build();
 
                 Cursor cursor = contentResolver.query(uri, projection, "aliment LIKE ?", new String[]{mot_aliment+"%"}, null);
                 SimpleCursorAdapter adapter=new SimpleCursorAdapter(this,android.R.layout.two_line_list_item,cursor,new String[]{"aliment","calories"},new int[]{android.R.id.text1},0);
+                    Cursor cursor = contentResolver.query(uri, projection, "aliment LIKE ?", new String[]{mot_aliment+"%"}, null);
 
                 list_aliment.setAdapter(adapter);
 
-                if (cursor == null )
-                    Toast.makeText(getApplicationContext(), "Cursor NULL \n"+mot_aliment, Toast.LENGTH_SHORT).show();
-                else {
-                    String query = "";
-                    while (cursor.moveToNext()) {
-                        query += cursor.getString(cursor.getColumnIndex(AlimentContentProvider.STRING_ALIMENT))+"\n";
+                    if (cursor == null )
+                        Toast.makeText(getApplicationContext(), "Cursor NULL \n"+mot_aliment, Toast.LENGTH_SHORT).show();
+                    else {
+                        String query = "";
+                        while (cursor.moveToNext()) {
+                            query += cursor.getString(cursor.getColumnIndex(AlimentContentProvider.STRING_ALIMENT))+"\n";
+                        }
+                        Log.d("CURSOR: ", cursor.toString());
+                        Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
                     }
-                    Log.d("CURSOR: ", cursor.toString());
-                    Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Vous devez rentrer un aliment", Toast.LENGTH_SHORT).show();
                 }
                 break;
 

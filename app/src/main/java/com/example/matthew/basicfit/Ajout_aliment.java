@@ -54,7 +54,11 @@ public class Ajout_aliment extends AppCompatActivity {
         et_aliment = (EditText) findViewById(R.id.b_aliment);
         et_calories = (EditText) findViewById(R.id.b_calorie);
         this.ok=(Button)findViewById(R.id.b_ok);
+    }
 
+    private boolean checkEditText() {
+        return !et_aliment.getText().toString().equals("") &&
+                !et_calories.getText().toString().equals("");
     }
 
     /*
@@ -74,7 +78,7 @@ public class Ajout_aliment extends AppCompatActivity {
         Uri uri = builder.build();
 
 
-        if (!et_aliment.getText().toString().equals("") && !et_calories.getText().toString().equals("")) { /* Check si l'EditText est vide ou pas */
+        if (checkEditText()) {
             String nom_aliment = et_aliment.getText().toString();
             int nb_calories = Integer.parseInt(et_calories.getText().toString());
 
