@@ -2,9 +2,7 @@ package com.example.matthew.basicfit;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -14,8 +12,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 
 import java.io.BufferedReader;
@@ -25,7 +21,6 @@ import java.io.InputStreamReader;
 
 
 public class MainActivity extends AppCompatActivity {
-    private String authority;
 
     private static String authority;
 
@@ -49,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

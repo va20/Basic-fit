@@ -30,7 +30,6 @@ import java.util.Date;
 
 public class Ajout_aliment_repas extends AppCompatActivity {
 
-    private static String authority;
     private EditText ed_add;
     private String authority;
     private EditText et_aliment, et_gramme;
@@ -56,13 +55,13 @@ public class Ajout_aliment_repas extends AppCompatActivity {
         b_chercher = (Button) findViewById(R.id.b_chercher);
         b_ajouter = (Button) findViewById(R.id.b_ok);
 
-        this.list_aliment= (ListView) findViewById(R.id.listview_aliment);
+        this.list_aliment = (ListView) findViewById(R.id.listview_aliment);
     /*
     * Calcul le nombre de calories pour 100g dans l'activité acitivty_ajout_aliment_repas.xml
     * @param gramme nombre de gramme
     * @return nombre de calories pour 100g
      */
-
+    }
     public int calcul_calories(int gramme) {
         return 0;
     }
@@ -136,8 +135,6 @@ public class Ajout_aliment_repas extends AppCompatActivity {
     }
 
 
-
-    }
     /*
     * Action des buttons de l'activité Ajout_aliment_repas.
     *
@@ -232,19 +229,16 @@ public class Ajout_aliment_repas extends AppCompatActivity {
                 if(!et_aliment.getText().toString().equals("")) {
                     mot_aliment = et_aliment.getEditableText().toString();
 
-                    String[] projection = {AlimentContentProvider.STRING_ALIMENT,AlimentContentProvider.STRING_CALORIES};
-
                     builder = new Uri.Builder();
 
                     builder.scheme("content").authority(authority).appendPath("aliment").build();
 
                     uri = builder.build();
 
-                Cursor cursor = contentResolver.query(uri, projection, "aliment LIKE ?", new String[]{mot_aliment+"%"}, null);
-                SimpleCursorAdapter adapter=new SimpleCursorAdapter(this,android.R.layout.two_line_list_item,cursor,new String[]{"aliment","calories"},new int[]{android.R.id.text1},0);
                     Cursor cursor = contentResolver.query(uri, projection, "aliment LIKE ?", new String[]{mot_aliment+"%"}, null);
+                    SimpleCursorAdapter adapter=new SimpleCursorAdapter(this,android.R.layout.two_line_list_item,cursor,new String[]{"aliment","calories"},new int[]{android.R.id.text1},0);
 
-                list_aliment.setAdapter(adapter);
+                    list_aliment.setAdapter(adapter);
 
                     if (cursor == null )
                         Toast.makeText(getApplicationContext(), "Cursor NULL \n"+mot_aliment, Toast.LENGTH_SHORT).show();
