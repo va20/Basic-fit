@@ -13,6 +13,9 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -23,6 +26,11 @@ public class ProfileActivity extends AppCompatActivity {
 
     private static String authority;
     private Button import_cvs;
+    private Button ajouter;
+    private TextView calories;
+    private EditText bdd_aliment;
+    private EditText b_calories;
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -49,6 +57,11 @@ public class ProfileActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         this.import_cvs = (Button) findViewById(R.id.b_import);
+        this.ajouter = (Button) findViewById(R.id.b_ok);
+        this.bdd_aliment = (EditText) findViewById(R.id.bdd_aliment);
+        this.b_calories = (EditText) findViewById(R.id.b_calorie);
+
+
     }
 
 
@@ -102,6 +115,40 @@ public class ProfileActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean checkEditText() {
+        return !bdd_aliment.getText().toString().equals("") && !b_calories.getText().toString().equals("");
+    }
+
+    public void add(View view) {
+
+        ContentResolver resolver = getContentResolver();
+
+        Uri.Builder builder = new Uri.Builder();
+
+        ContentValues values = new ContentValues();
+
+        builder.scheme("content").authority(authority).appendPath("aliment");
+
+        Uri uri = builder.build();
+
+
+        if (checkEditText()) {
+            String nom_aliment = bdd_aliment.getText().toString();
+            int nb_calories = Integer.parseInt(b_calories.getText().toString());
+
+            values.put("aliment", nom_aliment);
+            values.put("calories", nb_calories);
+
+            uri = resolver.insert(uri, values);
+            Toast.makeText(getApplicationContext(), "l'aliment a bien été rajouté", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Log.d("TOAST: ", "DANS LE ELSE");
+            Toast.makeText(getApplicationContext(), "Les champs ne sont pas correctement remplis", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     public void intent_add(){

@@ -51,7 +51,6 @@ public class Ajout_aliment extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        et_aliment = (EditText) findViewById(R.id.b_aliment);
         et_calories = (EditText) findViewById(R.id.b_calorie);
         this.ok=(Button)findViewById(R.id.b_ok);
     }
@@ -65,35 +64,6 @@ public class Ajout_aliment extends AppCompatActivity {
     * La fonction "ok" sert à ajouter un aliment dans la base de donnée.
      */
 
-    public void add(View view) {
-
-        ContentResolver resolver = getContentResolver();
-
-        Uri.Builder builder = new Uri.Builder();
-
-        ContentValues values = new ContentValues();
-
-        builder.scheme("content").authority(authority).appendPath("aliment");
-
-        Uri uri = builder.build();
-
-
-        if (checkEditText()) {
-            String nom_aliment = et_aliment.getText().toString();
-            int nb_calories = Integer.parseInt(et_calories.getText().toString());
-
-            values.put("aliment", nom_aliment);
-            values.put("calories", nb_calories);
-
-            uri = resolver.insert(uri, values);
-            Toast.makeText(getApplicationContext(), "l'aliment a bien été rajouté", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            Log.d("TOAST: ", "DANS LE ELSE");
-            Toast.makeText(getApplicationContext(), "Les champs ne sont pas correctement remplis", Toast.LENGTH_SHORT).show();
-        }
-
-    }
 
     public void intent_settings(){
         Intent intent = new Intent();

@@ -17,6 +17,13 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.example.matthew.basicfit.GraphView
+        android:id="@+id/graphview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="vertical"
+        android:padding="10dip"
+        android:scrollbars="vertical"/>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"

@@ -21,7 +21,7 @@
         android:id="@+id/layout_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/b_import"
@@ -31,46 +31,51 @@
             android:onClick="importCvs"
             android:text="IMPORTER CVS" />
 
-        <Button
-            android:id="@+id/b_aliment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="b_aliment"
-            android:text="AJOUTER ALIMENT" />
-
-        <Button
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="b_manger"
-            android:text="AJOUTER ALIMENT AU REPAS" />
-    </LinearLayout>
-
-
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </Spinner>
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="AJOUTER UN ALIMENT :" />
+
+            <EditText
+                android:id="@+id/bdd_aliment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Calories: " />
+
+            <EditText
+                android:id="@+id/b_calorie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"/>
+
+        </LinearLayout>
+        <Button
+            android:id="@+id/b_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AJOUTER"
+            android:onClick="add" />
+
+
+
+
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
 
