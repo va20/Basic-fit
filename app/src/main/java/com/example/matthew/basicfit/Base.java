@@ -19,13 +19,14 @@ public class Base extends SQLiteOpenHelper {
     private final static String DB_TABLE_MIDI = "table_midi";
     private final static String DB_TABLE_SOIR = "table_soir";
 
-    private final static int VERSION = 3;
+    private final static int VERSION = 1;
 
     private final static String CREATE_TABLE_ALIMENT = "create table " + DB_TABLE_ALIMENT + "(" + "aliment string, " + "calories integer, _id integer primary key );";
-    private final static String CREATE_TABLE_MOI = "create table " + DB_TABLE_MOI + "(" + "date datetime, " + "calorie integer );";
-    private final static String CREATE_TABLE_ALIMENT_MATIN = "create table " + DB_TABLE_MATIN + "(" + "date datetime, " + "aliment string);";
-    private final static String CREATE_TABLE_ALIMENT_MIDI = "create table " + DB_TABLE_MIDI + "(" + "date datetime, " + "aliment string);";
-    private final static String CREATE_TABLE_ALIMENT_SOIR = "create table " + DB_TABLE_SOIR + "(" + "date datetime, " + "aliment string);";
+    private final static String CREATE_TABLE_MOI = "create table " + DB_TABLE_MOI + "(" + "date datetime, " + "calories integer );";
+    private final static String CREATE_TABLE_ALIMENT_MATIN = "create table " + DB_TABLE_MATIN + "(" + "date datetime, " + "aliment string, "+ "calories integer);";
+    private final static String CREATE_TABLE_ALIMENT_MIDI = "create table " + DB_TABLE_MIDI + "(" + "date datetime, " + "aliment string, "+ "calories integer);";
+    private final static String CREATE_TABLE_ALIMENT_SOIR = "create table " + DB_TABLE_SOIR + "(" + "date datetime, " + "aliment string, "+ "calories integer);";
+
 
     public static Base getInstance(Context context) {
         if (instance == null) {
@@ -52,6 +53,10 @@ public class Base extends SQLiteOpenHelper {
         if (new_version > old_version) {
             String e = "exists";
             db.execSQL("drop table if " + e + " " + DB_TABLE_ALIMENT);
+            db.execSQL("drop table if " + e + " " + DB_TABLE_MOI);
+            db.execSQL("drop table if " + e + " " + DB_TABLE_MATIN);
+            db.execSQL("drop table if " + e + " " + DB_TABLE_MIDI);
+            db.execSQL("drop table if " + e + " " + DB_TABLE_SOIR);
             onCreate(db);
         }
     }

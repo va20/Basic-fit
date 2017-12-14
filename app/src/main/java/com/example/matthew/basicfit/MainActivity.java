@@ -19,7 +19,7 @@ import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String authority;
+    private static String authority;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

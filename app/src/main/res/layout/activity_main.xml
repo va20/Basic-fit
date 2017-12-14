@@ -48,4 +48,21 @@
             android:text="AJOUTER ALIMENT AU REPAS" />
     </LinearLayout>
 
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </Spinner>
+
+
+
+        <com.example.matthew.basicfit.GraphView
+            id="@+id/graphview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fadingEdge="vertical"
+            android:padding="10dip"
+            android:scrollbars="vertical" />
+
+
 </LinearLayout>
