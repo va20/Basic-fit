@@ -225,7 +225,7 @@ public class Ajout_aliment_repas extends AppCompatActivity {
 
                 mot_aliment = "";
 
-                String[] projection = {AlimentContentProvider.STRING_ALIMENT,AlimentContentProvider.STRING_CALORIES};
+                String[] projection = {AlimentContentProvider.STRING_ID,AlimentContentProvider.STRING_ALIMENT,AlimentContentProvider.STRING_CALORIES};
                 if(!et_aliment.getText().toString().equals("")) {
                     mot_aliment = et_aliment.getEditableText().toString();
 
@@ -236,7 +236,10 @@ public class Ajout_aliment_repas extends AppCompatActivity {
                     uri = builder.build();
 
                     Cursor cursor = contentResolver.query(uri, projection, "aliment LIKE ?", new String[]{mot_aliment+"%"}, null);
-                    SimpleCursorAdapter adapter=new SimpleCursorAdapter(this,android.R.layout.two_line_list_item,cursor,new String[]{"aliment","calories"},new int[]{android.R.id.text1},0);
+                    if (cursor != null) {
+                        Log.d("CURSOR ", "CURSOR DIFFERENT DE NUL");
+                    }
+                    SimpleCursorAdapter adapter=new SimpleCursorAdapter(this,R.layout.aliments_list,cursor,new String[]{"aliment","calories"},new int[]{R.id.aliment,R.id.aliment_calorie},0);
 
                     list_aliment.setAdapter(adapter);
 
