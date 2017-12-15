@@ -9,10 +9,15 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 public class HomeActivity extends AppCompatActivity {
     private TextView nom;
+    private TextView objectif;
+    private Spinner jours_spinner;
+
     private Intent intent;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -40,9 +45,22 @@ public class HomeActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         this.nom = (TextView) findViewById(R.id.textnom);
+        this.objectif = (TextView) findViewById(R.id.textObjectif);
+        jours_spinner = (Spinner) findViewById(R.id.jours_spinner);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.list_jours, android.R.layout.simple_spinner_item);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        jours_spinner.setAdapter(adapter);
+
         SharedPreferences pref=getSharedPreferences("save", Context.MODE_PRIVATE);
         String nomSaved = pref.getString("nomSaved","");
+        int nb_calories = pref.getInt("caloriesSaved",0);
+        String  calories = Integer.toString(nb_calories);
         nom.setText("Hey "+nomSaved+" !");
+        this.objectif.setText("Objectif du jour "+calories +"Kcal");
 
     }
 

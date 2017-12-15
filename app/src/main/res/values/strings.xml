@@ -8,4 +8,15 @@
     <string name="ajout_aliment">Ajout_Aliment</string>
     <string name="settings">Settings</string>
     <string name="title_activity_home">HomeActivity</string>
+
+    <string-array name="list_jours">
+        <item>1 jours</item>
+        <item>2 jours</item>
+        <item>3 jours</item>
+        <item>4 jours</item>
+        <item>5 jours</item>
+        <item>6 jours</item>
+        <item>7 jours</item>
+    </string-array>
+
 </resources>

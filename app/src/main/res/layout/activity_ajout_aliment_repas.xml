@@ -1,106 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.example.matthew.basicfit.Ajout_aliment_repas">
-
+    tools:context="com.example.matthew.basicfit.ProfileActivity">
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/navigation" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
+        android:orientation="vertical">
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Aliment:" />
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aliment:" />
 
-        <EditText
-            android:id="@+id/et_aliment"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/et_aliment"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content" />
 
-        <EditText
-            android:id="@+id/et_gramme"
-            android:layout_width="67dp"
-            android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/et_gramme"
+                android:layout_width="67dp"
+                android:layout_height="wrap_content" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="g" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="g" />
+        </LinearLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <ListView
-            android:id="@+id/list"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="421dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            android:drawSelectorOnTop="false" />
+            <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+                <RadioButton android:id="@+id/radio_matin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="matin"
+                    />
 
-        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+
+                <RadioButton android:id="@+id/radio_midi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="midi"
+                    />
+
+
+                <RadioButton
+                    android:id="@+id/radio_soir"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="soir" />
+            </RadioGroup>
+
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <RadioButton android:id="@+id/radio_matin"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="matin"
-                />
-
-
-            <RadioButton android:id="@+id/radio_midi"
+            <Button
+                android:id="@+id/b_chercher"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="midi"
-                />
+                android:onClick="ok"
+                android:text="CHERCHER ALIMENT" />
 
-
-            <RadioButton
-                android:id="@+id/radio_soir"
+            <Button
+                android:id="@+id/b_ok"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="ok"
+                android:text="AJOUTER AU REPAS" />
+        </LinearLayout>
 
-                android:text="soir" />
-        </RadioGroup>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
+            <ListView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="421dp"
+
+                android:drawSelectorOnTop="false" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/b_chercher"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="ok"
-            android:text="CHERCHER ALIMENT" />
 
-        <Button
-            android:id="@+id/b_ok"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="ok"
-            android:text="AJOUTER AU REPAS" />
-    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
 
-</LinearLayout>
