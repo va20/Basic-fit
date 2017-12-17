@@ -48,41 +48,6 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <RadioButton android:id="@+id/radio_matin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="matin"
-                    />
-
-
-                <RadioButton android:id="@+id/radio_midi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="midi"
-                    />
-
-
-                <RadioButton
-                    android:id="@+id/radio_soir"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:text="soir" />
-            </RadioGroup>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
@@ -110,7 +75,8 @@
                 android:id="@+id/list"
                 android:layout_width="match_parent"
                 android:layout_height="421dp"
-
+                android:background="@drawable/bg_couleur"
+                android:listSelector="@color/item_pressed"
                 android:drawSelectorOnTop="false" />
 
         </LinearLayout>

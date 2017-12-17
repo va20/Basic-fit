@@ -8,12 +8,15 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -38,7 +41,7 @@ public class Ajout_aliment_repas extends AppCompatActivity {
     private EditText et_aliment, et_gramme;
     private ListView listView;
     private Button b_chercher, b_ajouter;
-    private RadioButton rb_matin, rb_midi, rb_soir;
+    protected RadioButton rb_matin, rb_midi, rb_soir;
     private ListAdapter listAdapter;
 
 
@@ -76,13 +79,58 @@ public class Ajout_aliment_repas extends AppCompatActivity {
         et_aliment = (EditText) findViewById(R.id.et_aliment);
         et_gramme = (EditText) findViewById(R.id.et_gramme);
 
-
-        rb_matin = (RadioButton) findViewById(R.id.radio_matin);
-        rb_midi = (RadioButton) findViewById(R.id.radio_midi);
-        rb_soir = (RadioButton) findViewById(R.id.radio_soir);
-
         b_chercher = (Button) findViewById(R.id.b_chercher);
         b_ajouter = (Button) findViewById(R.id.b_ok);
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                System.out.println(position);
+                String repas="";
+                String calorie="";
+                Cursor cur = (Cursor)listAdapter.getItem(position);
+                System.out.println(cur.getString(cur.getColumnIndex(AlimentContentProvider.STRING_ALIMENT)));
+                System.out.println(cur.getString(cur.getColumnIndex(AlimentContentProvider.STRING_CALORIES)));
+                repas=cur.getString(cur.getColumnIndex(AlimentContentProvider.STRING_ALIMENT));
+                calorie=cur.getString(cur.getColumnIndex(AlimentContentProvider.STRING_CALORIES));
+                et_aliment.setText(repas);
+                et_gramme.setText(calorie);
+
+                AlertDialog.Builder repas_dialog = new AlertDialog.Builder(Ajout_aliment_repas.this);
+                View view1 = getLayoutInflater().inflate(R.layout.dialog,null);
+                Ajout_aliment_repas.this.rb_matin = (RadioButton) view1.findViewById(R.id.radio_matin);
+                Ajout_aliment_repas.this.rb_midi = (RadioButton) view1.findViewById(R.id.radio_midi);
+                Ajout_aliment_repas.this.rb_soir = (RadioButton) view1.findViewById(R.id.radio_soir);
+                Button ok = (Button) view1.findViewById(R.id.b_ajout);
+                Button annuler = (Button) view1.findViewById(R.id.b_annuler);
+
+                repas_dialog.setView(view1);
+
+                final AlertDialog r_dialog = repas_dialog.create();
+
+                r_dialog.show();
+
+                ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(Ajout_aliment_repas.this.rb_matin.isChecked()||
+                                Ajout_aliment_repas.this.rb_midi.isChecked() ||
+                                Ajout_aliment_repas.this.rb_soir.isChecked()){
+
+                            r_dialog.cancel();
+                        }
+                    }
+                });
+
+                annuler.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        r_dialog.cancel();
+                    }
+                });
+            }
+        });
     }
 
     /*
@@ -95,6 +143,10 @@ public class Ajout_aliment_repas extends AppCompatActivity {
         return 0;
     }
 
+    protected void onListItemClick(ListView l,View view,int position ,long id){
+        Cursor cursor =(Cursor) l.getItemAtPosition(position);
+        System.out.println(cursor.getString(position));
+    }
 
     /*
     * Check si les EditText sont vides
@@ -280,7 +332,7 @@ public class Ajout_aliment_repas extends AppCompatActivity {
                             query += cursor.getString(cursor.getColumnIndex(AlimentContentProvider.STRING_ALIMENT))+"\n";
                         }
                         Log.d("CURSOR: ", cursor.toString());
-                        Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
                     }
                 }
                 else {
