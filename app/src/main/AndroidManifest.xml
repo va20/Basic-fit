@@ -23,7 +23,6 @@
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".MainActivity" />
         <activity android:name=".Ajout_aliment_repas" />
         <activity android:name=".ProfileActivity" />
         <activity
