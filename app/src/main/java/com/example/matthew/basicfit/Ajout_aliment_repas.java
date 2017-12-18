@@ -141,7 +141,7 @@ public class Ajout_aliment_repas extends AppCompatActivity {
      */
 
     public int calcul_calories(int gramme) {
-        return 0;
+        return gramme*20;
     }
 
     protected void onListItemClick(ListView l,View view,int position ,long id){
@@ -240,6 +240,7 @@ public class Ajout_aliment_repas extends AppCompatActivity {
 
         switch(view.getId()){
             case R.id.b_ok:
+                System.out.println("LA FARINE");
                 String mot_aliment = "";
 
                 if(checkEditText()) {
@@ -275,8 +276,10 @@ public class Ajout_aliment_repas extends AppCompatActivity {
                     int grammes = 0;
 
                     String string_gramme = et_gramme.getText().toString();
+                        System.out.println("FARINE FARINE FARINE 1");
 
                     if (isNumeric(string_gramme)) {
+                        System.out.println("FARINE FARINE FARINE 2");
                         grammes  = calcul_calories(Integer.parseInt(string_gramme));
 
                         contentValues.put("date",dateFormat.format(date));
@@ -285,7 +288,13 @@ public class Ajout_aliment_repas extends AppCompatActivity {
 
                         uri = contentResolver.insert(uri,contentValues);
 
-                        builder.scheme("content").authority(authority).appendPath("moi").build();
+                        Uri uri_calories;
+
+                        Uri.Builder builder1 = new Uri.Builder();
+
+                        String slash = "/";
+
+                        uri_calories = builder1.scheme("content").authority(authority).appendPath("moi").appendPath("calories").build();
 
                         contentValues = new ContentValues();
 
@@ -293,7 +302,7 @@ public class Ajout_aliment_repas extends AppCompatActivity {
 
                         contentValues.put("calories", new_grammes);
 
-                        contentResolver.update(uri, contentValues, "calories = ?", new String[]{"calories"});
+                        contentResolver.update(uri_calories, contentValues, "calories = ?", new String[]{"calories"});
                     }
                     else {
                         Toast.makeText(getApplicationContext(), "vous n'avez pas rentré une valeur correct", Toast.LENGTH_SHORT);
