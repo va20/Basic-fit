@@ -40,12 +40,14 @@ public class AlimentContentProvider extends ContentProvider {
     private final static int SOIR_DATE = 15;
     private final static int SOIR_CALORIES = 16;
     private final static int MOI_CALORIE = 17;
+    private final static int MOI_DATE = 18;
 
 
     final static String STRING_ALIMENT = "aliment";
     final static String STRING_MATIN = "matin";
     final static String STRING_MIDI = "midi";
     final static String STRING_SOIR = "soir";
+    final static String STRING_DATE = "date";
     final static String STRING_CALORIES = "calories";
     final static String STRING_ALIMENT_ID = "_id";
 
@@ -53,7 +55,7 @@ public class AlimentContentProvider extends ContentProvider {
     final static String STRING_TABLE_MATIN = "table_matin";
     final static String STRING_TABLE_MIDI = "table_midi";
     final static String STRING_TABLE_SOIR = "table_soir";
-    final static String STRING_TABLE_MOI = "table_soir";
+    final static String STRING_TABLE_MOI = "table_moi";
 
     private static final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
 
@@ -74,7 +76,8 @@ public class AlimentContentProvider extends ContentProvider {
         matcher.addURI(authority,"soir/aliment",SOIR_ALIMENT);
         matcher.addURI(authority,"soir/date",SOIR_DATE);
         matcher.addURI(authority,"soir/calories",SOIR_CALORIES);
-        matcher.addURI(authority, "moi/calorie", MOI_CALORIE);
+        matcher.addURI(authority, "moi/calories", MOI_CALORIE);
+        matcher.addURI(authority, "moi/date", MOI_DATE);
     }
 
     public AlimentContentProvider() {
@@ -92,7 +95,7 @@ public class AlimentContentProvider extends ContentProvider {
     public Cursor query(@NonNull Uri uri, @Nullable String[] strings, @Nullable String s, @Nullable String[] strings1, @Nullable String s1) {
         SQLiteDatabase db = helper.getReadableDatabase();
         int code = matcher.match(uri);
-        Log.e("URI: ", uri.toString());
+        // Log.e("URI: ", uri.toString());
         Cursor cursor = null;
 
         switch (code) {
@@ -183,7 +186,7 @@ public class AlimentContentProvider extends ContentProvider {
             case SOIR:
                 i = db.delete(STRING_TABLE_SOIR,  s, strings);
             default:
-                throw new UnsupportedOperationException("Uri non reconnu");
+                throw new UnsupportedOperationException("delete non reconnue");
         }
         return i;
     }
@@ -192,14 +195,15 @@ public class AlimentContentProvider extends ContentProvider {
     public int update(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable String s, @Nullable String[] strings) {
         SQLiteDatabase db = helper.getWritableDatabase();
         int code = matcher.match(uri);
+        Log.d("UPDATE ", uri.toString());
         int i;
         long id;
         switch (code) {
-            case CALORIES:
+            case MOI_CALORIE:
                 i = db.update(STRING_TABLE_MOI, contentValues, s, strings);
                 break;
             default:
-                throw new UnsupportedOperationException("Pas encore implementé");
+                throw new UnsupportedOperationException("Update pas encore implementé");
         }
         return i;
     }

@@ -39,7 +39,8 @@
             <Spinner
                 android:id="@+id/jours_spinner"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                />
 
         </LinearLayout>
 
@@ -52,10 +53,11 @@
             <com.example.matthew.basicfit.GraphView
                 android:id="@+id/graphview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="392dp"
+                android:layout_marginBottom="70dip"
                 android:fadingEdge="vertical"
                 android:padding="10dip"
-                android:scrollbars="vertical"/>
+                android:scrollbars="vertical" />
 
         </LinearLayout>
 

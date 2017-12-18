@@ -7,8 +7,6 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewParent;
-import android.widget.LinearLayout;
 
 
 import java.util.Iterator;
@@ -21,8 +19,9 @@ import java.util.TreeMap;
 
 public class GraphView extends View {
 
+    private Paint paint,paint1,paint2;
+    private int kcal = 3000;
     private static String authority;
-    Paint paint,paint1,paint2;
 
     private int size;
     private Map<String, String> graph;
@@ -30,6 +29,7 @@ public class GraphView extends View {
     public GraphView(Context context, AttributeSet attrs) {
         super(context,attrs);
 
+        authority = getResources().getString(R.string.authority);
 
         graph = new TreeMap<>();
 
@@ -55,9 +55,12 @@ public class GraphView extends View {
         authority = getResources().getString(R.string.authority);
     }
 
-    /*
-    "yyyy-MM-dd HH:mm:ss"
-     */
+    public void setMap(Map<String, String> coord) {
+        graph.clear();
+        graph.putAll(coord);
+        invalidate();
+    }
+
 
     public float parseToFloat(String s) {
         String toDouble = s.substring(11, 13);
@@ -72,20 +75,22 @@ public class GraphView extends View {
 
         for(int i = 0; i < 24; i++) {
             if (i % 2 == 0) {
-                canvas.drawText(""+i+"h",i*coef,20,paint);
-                canvas.drawLine(i*coef,yToOrigine(i),i*coef,yToOrigine(getHeight()),paint2);
+                canvas.drawText(""+i+"h",i*coef+50,20,paint);
+                canvas.drawLine(i*coef+50,yToOrigine(i),i*coef+50,yToOrigine(getHeight()),paint2);
 
             }
         }
 
     }
 
+
     public void drawGraphparametersY(Canvas canvas) {
-        int h = getHeight();
-        for (int i = 0; i < h ; i++) {
-            if (i % 300 == 0) {
-                canvas.drawText(""+i,0,yToOrigine(i),paint);
-                canvas.drawLine(0,yToOrigine(i),getWidth(),yToOrigine(i),paint2);
+        float coehf = (float) canvas.getHeight() / kcal;
+
+        for (int i = 0; i < kcal ; i++) {
+            if (i % ((int)(1000*coehf)) == 0) {
+                canvas.drawText(""+i,0,yToOrigine(i*coehf),paint);
+                canvas.drawLine(0,yToOrigine(i*coehf),canvas.getWidth(),yToOrigine(i*coehf),paint2);
             }
         }
     }
@@ -101,11 +106,13 @@ public class GraphView extends View {
 
         drawGraphparametersY(canvas);
 
-        float coefw = canvas.getWidth()/24;
+        float coefw = (float) canvas.getWidth() / 24;
+        float coefh = (float) canvas.getHeight() / kcal;
         float x1,y1,x2,y2;
 
-        x1 = 0;
-        y1 = yToOrigine(0);
+
+        x1 = coefw+50;
+        y1 = yToOrigine(coefh);
 
         int i = 0;
 
@@ -113,16 +120,20 @@ public class GraphView extends View {
 
         while(it.hasNext()) {
             String s = it.next();
+
             int calories = Integer.parseInt(graph.get(s));
             float heure = parseToFloat(s);
-            x2 = heure*coefw;
-            y2 = yToOrigine(calories);
-            Log.d("coordonnées y2", "" + yToOrigine(y2));
+
+            x2 = (heure)*coefw+50;
+            y2 = yToOrigine(calories*coefh);
+
             canvas.drawLine(x1,y1,x2,y2,paint);
             canvas.drawCircle(x2,y2,15,paint1);
-            canvas.drawText(calories+" Kcal",x1+20,y1+10,paint);
+            canvas.drawText(calories+" Kcal",x2+20,y2+10,paint);
+
             x1 = x2;
             y1 = y2;
+
             i++;
         }
     }
