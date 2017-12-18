@@ -249,10 +249,13 @@ public class Ajout_aliment_repas extends AppCompatActivity {
 
                     if (rb_matin.isChecked()) {
                         repas = "matin";
+                        System.out.println("matin");
                     } else if (rb_midi.isChecked()) {
                         repas = "midi";
+                        System.out.println("midi");
                     }
                     else {
+                        System.out.println("soir");
                         repas = "soir";
                     }
 
