@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BasicFit.iml" filepath="$PROJECT_DIR$/BasicFit.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/basic-fat.iml" filepath="$PROJECT_DIR$/.idea/basic-fat.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/basic-fat.iml" filepath="$PROJECT_DIR$/.idea/basic-fat.iml" />
     </modules>
   </component>

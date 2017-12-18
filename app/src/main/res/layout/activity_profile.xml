@@ -28,8 +28,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:backgroundTint="@color/colorPrimary"
+            android:defaultFocusHighlightEnabled="true"
             android:onClick="importCvs"
-            android:text="IMPORTER CVS" />
+            android:shadowColor="@android:color/holo_blue_light"
+            android:text="IMPORTER CVS"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textColor="?android:attr/colorBackground"
+            android:visibility="visible" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -39,10 +45,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AJOUTER UN ALIMENT :" />
+                android:text="AJOUTER UN ALIMENT :"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
             <EditText
                 android:id="@+id/bdd_aliment"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -56,12 +64,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:text="Calories: " />
 
             <EditText
                 android:id="@+id/b_calorie"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:inputType="numberDecimal"/>
 
         </LinearLayout>
@@ -70,7 +80,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="AJOUTER"
-            android:onClick="add" />
+            android:onClick="add"
+            android:backgroundTint="@color/colorPrimary"
+            android:defaultFocusHighlightEnabled="true"
+            android:shadowColor="@android:color/holo_blue_light"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textColor="?android:attr/colorBackground"
+            android:visibility="visible"/>
 
 
 
@@ -83,6 +99,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Mon objectif : "
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 tools:layout_editor_absoluteX="35dp"
                 tools:layout_editor_absoluteY="196dp"
                 tools:ignore="MissingConstraints" />
@@ -94,14 +111,15 @@
                 <TextView
                     android:id="@+id/nb_cal"
                     android:layout_width="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:layout_height="wrap_content"
                     android:text="TextView"
-                    android:inputType="number"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:inputType="number" />
                 <EditText
                     android:id="@+id/change_nb_calories"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:inputType="numberDecimal"
                     />
 
@@ -114,6 +132,7 @@
                 android:text="  Kcal/Jour"
                 tools:layout_editor_absoluteX="35dp"
                 tools:layout_editor_absoluteY="196dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 tools:ignore="MissingConstraints" />
         </LinearLayout>
 
@@ -123,6 +142,12 @@
             android:layout_height="wrap_content"
             android:text="Modifier mon objectif"
             android:onClick="modifier"
+            android:backgroundTint="@color/colorPrimary"
+            android:defaultFocusHighlightEnabled="true"
+            android:shadowColor="@android:color/holo_blue_light"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textColor="?android:attr/colorBackground"
+            android:visibility="visible"
             />
     </LinearLayout>
 

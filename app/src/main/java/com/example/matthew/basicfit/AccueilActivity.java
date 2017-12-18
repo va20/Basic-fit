@@ -1,8 +1,12 @@
 package com.example.matthew.basicfit;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +19,7 @@ public class AccueilActivity extends AppCompatActivity {
     private EditText nom;
     private EditText nb_cal;
     public static final String PREFS_NAME = "save";
+    android.support.v7.app.ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +28,8 @@ public class AccueilActivity extends AppCompatActivity {
         this.save = (Button) findViewById(R.id.save);
         this.nom = (EditText) findViewById(R.id.nom);
         this.nb_cal = (EditText) findViewById(R.id.nb_cal);
+        actionBar = getSupportActionBar();
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#303F9F")));
 
         /*SharedPreferences sharedPrefs = getSharedPreferences("save", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefs.edit();
