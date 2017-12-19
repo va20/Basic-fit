@@ -47,6 +47,9 @@ public class HomeActivity extends AppCompatActivity {
                     return true;
                 case R.id.home:
                     return true;
+                case R.id.supprimer_aliment:
+                    intent_supp();
+                    return true;
             }
             return false;
         }
@@ -57,6 +60,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setSelectedItemId(R.id.home);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         authority = getResources().getString(R.string.authority);
@@ -99,7 +103,7 @@ public class HomeActivity extends AppCompatActivity {
         graphView.setObjectif(nb_calories);
         String calories = Integer.toString(nb_calories);
         nom.setText("Hey " + nomSaved + " !");
-        this.objectif.setText("Objectif du jour " + calories + "Kcal");
+        this.objectif.setText("/" + calories + "Kcal");
 
     }
 
@@ -231,6 +235,12 @@ public class HomeActivity extends AppCompatActivity {
         intent = new Intent();
         intent.setClass(this, ProfileActivity.class);
         this.startActivity(this.intent);
+    }
+
+    public void intent_supp(){
+        Intent intent = new Intent();
+        intent.setClass(this,SuppressionActivity.class);
+        this.startActivity(intent);
     }
 
 }

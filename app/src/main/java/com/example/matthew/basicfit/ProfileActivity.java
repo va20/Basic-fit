@@ -42,6 +42,7 @@ public class ProfileActivity extends AppCompatActivity {
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
+
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
@@ -53,6 +54,10 @@ public class ProfileActivity extends AppCompatActivity {
                 case R.id.home:
                     intent_home();
                     return true;
+
+                case R.id.supprimer_aliment:
+                    intent_supp();
+                    return true;
             }
             return false;
         }
@@ -63,8 +68,13 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         authority = getResources().getString(R.string.authority);
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setSelectedItemId(R.id.settings);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+
+
         this.import_cvs = (Button) findViewById(R.id.b_import);
         this.ajouter = (Button) findViewById(R.id.b_ok);
         this.bdd_aliment = (EditText) findViewById(R.id.bdd_aliment);
@@ -74,6 +84,10 @@ public class ProfileActivity extends AppCompatActivity {
         int nb_calories = pref.getInt("caloriesSaved",0);
         this.objectif.setText(Integer.toString(nb_calories));
 
+
+    }
+
+    public void supprimer_aliment(View view){
 
     }
 
@@ -161,6 +175,8 @@ public class ProfileActivity extends AppCompatActivity {
             Log.d("TOAST: ", "DANS LE ELSE");
             Toast.makeText(getApplicationContext(), "Les champs ne sont pas correctement remplis", Toast.LENGTH_SHORT).show();
         }
+        this.bdd_aliment.setText("");
+        this.b_calories.setText("");
 
     }
 
@@ -215,6 +231,12 @@ public class ProfileActivity extends AppCompatActivity {
     public void intent_home(){
         Intent intent= new Intent();
         intent.setClass(this,HomeActivity.class);
+        this.startActivity(intent);
+    }
+
+    public void intent_supp(){
+        Intent intent = new Intent();
+        intent.setClass(this,SuppressionActivity.class);
         this.startActivity(intent);
     }
 }

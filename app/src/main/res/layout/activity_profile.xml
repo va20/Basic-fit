@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.matthew.basicfit.ProfileActivity">
+
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="0dp"
@@ -40,15 +41,13 @@
 
     <LinearLayout
         android:id="@+id/linearLayout4"
-        android:layout_width="175dp"
-        android:layout_height="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="68dp"
-        android:layout_marginEnd="104dp"
         android:layout_marginStart="105dp"
         android:layout_marginTop="32dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/modif_objectif">
 
@@ -60,20 +59,20 @@
 
         <EditText
             android:id="@+id/bdd_aliment"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLength="30"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout5"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="40dp"
+        android:layout_marginStart="104dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.399">
@@ -89,6 +88,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
+            android:maxLength="7"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
     </LinearLayout>
@@ -154,6 +154,7 @@
                 android:id="@+id/change_nb_calories"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxLength="7"
                 android:inputType="numberDecimal"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 

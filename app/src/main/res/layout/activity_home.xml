@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.matthew.basicfit.HomeActivity">
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,7 +18,7 @@
 
             <TextView
                 android:id="@+id/textnom"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Hello World!"
@@ -54,14 +55,15 @@
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="264dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp"
             android:orientation="horizontal">
 
             <com.example.matthew.basicfit.GraphView
                 android:id="@+id/graphview"
                 android:layout_width="match_parent"
-                android:layout_height="248dp"
+                android:layout_height="match_parent"
                 android:layout_marginBottom="50dip"
                 android:fadingEdge="vertical"
                 android:padding="100dip"

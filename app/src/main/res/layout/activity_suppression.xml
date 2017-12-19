@@ -1,8 +1,21 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.matthew.basicfit.AddFragment">
+    tools:context="com.example.matthew.basicfit.ProfileActivity">
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/navigation" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,22 +40,9 @@
                 android:id="@+id/et_aliment"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
+                android:maxLength="30"
                 android:layout_marginLeft="20dp"
                 android:backgroundTint="@android:color/darker_gray" />
-
-            <EditText
-                android:id="@+id/et_gramme"
-                android:layout_width="67dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="g"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textSize="18sp"
-                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -67,15 +67,15 @@
                 android:visibility="visible" />
 
             <Button
-                android:id="@+id/b_ok"
+                android:id="@+id/b_supprimer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:backgroundTint="@color/colorPrimary"
                 android:defaultFocusHighlightEnabled="true"
-                android:onClick="ok"
+                android:onClick="supprimer"
                 android:shadowColor="@android:color/holo_blue_light"
-                android:text="AJOUTER AU REPAS"
+                android:text="Supprimer"
                 android:textAppearance="@style/TextAppearance.AppCompat.Button"
                 android:textColor="?android:attr/colorBackground"
                 android:visibility="visible" />
@@ -100,4 +100,5 @@
 
 
 
-</FrameLayout>
+</android.support.constraint.ConstraintLayout>
+

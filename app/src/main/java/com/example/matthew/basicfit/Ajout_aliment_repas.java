@@ -23,6 +23,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -41,8 +42,11 @@ public class Ajout_aliment_repas extends AppCompatActivity {
     private String authority;
     private EditText et_aliment, et_gramme;
     private ListView listView;
+    private TimePicker timePicker;
     private Button b_chercher, b_ajouter;
     protected RadioButton rb_matin, rb_midi, rb_soir;
+    private int hour;
+    private int minute;
     private ListAdapter listAdapter;
 
 
@@ -60,6 +64,9 @@ public class Ajout_aliment_repas extends AppCompatActivity {
                 case R.id.home:
                     intent_home();
                     return true;
+                case R.id.supprimer_aliment:
+                    intent_supp();
+                    return true;
             }
             return false;
         }
@@ -73,6 +80,7 @@ public class Ajout_aliment_repas extends AppCompatActivity {
         authority = getResources().getString(R.string.authority);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setSelectedItemId(R.id.add_aliment);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         listView = (ListView) findViewById(R.id.list);
@@ -82,6 +90,7 @@ public class Ajout_aliment_repas extends AppCompatActivity {
 
         b_chercher = (Button) findViewById(R.id.b_chercher);
         b_ajouter = (Button) findViewById(R.id.b_ok);
+
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -108,8 +117,13 @@ public class Ajout_aliment_repas extends AppCompatActivity {
 
                 repas_dialog.setView(view1);
 
-                final AlertDialog r_dialog = repas_dialog.create();
+                Ajout_aliment_repas.this.timePicker = (TimePicker) view1.findViewById(R.id.timePicker);
+                timePicker.setIs24HourView(true);
 
+                Ajout_aliment_repas.this.hour = timePicker.getHour();
+                Ajout_aliment_repas.this.minute = timePicker.getMinute();
+
+                final AlertDialog r_dialog = repas_dialog.create();
                 r_dialog.show();
 
                 ok.setOnClickListener(new View.OnClickListener() {
@@ -118,7 +132,8 @@ public class Ajout_aliment_repas extends AppCompatActivity {
                         if(Ajout_aliment_repas.this.rb_matin.isChecked()||
                                 Ajout_aliment_repas.this.rb_midi.isChecked() ||
                                 Ajout_aliment_repas.this.rb_soir.isChecked()){
-
+                            Ajout_aliment_repas.this.hour = timePicker.getHour();
+                            Ajout_aliment_repas.this.minute = timePicker.getMinute();
                             r_dialog.cancel();
                         }
                     }
@@ -144,10 +159,6 @@ public class Ajout_aliment_repas extends AppCompatActivity {
         return gramme*20;
     }
 
-    protected void onListItemClick(ListView l,View view,int position ,long id){
-        Cursor cursor =(Cursor) l.getItemAtPosition(position);
-        System.out.println(cursor.getString(position));
-    }
 
     /*
     * Check si les EditText sont vides
@@ -310,7 +321,8 @@ public class Ajout_aliment_repas extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Vous devez rentrer un aliment", Toast.LENGTH_SHORT);
                 }
 
-
+                this.et_aliment.setText("");
+                this.et_gramme.setText("");
                 break;
 
             case R.id.b_chercher:
@@ -365,6 +377,12 @@ public class Ajout_aliment_repas extends AppCompatActivity {
     public void intent_home(){
         Intent intent = new Intent();
         intent.setClass(this,HomeActivity.class);
+        this.startActivity(intent);
+    }
+
+    public void intent_supp(){
+        Intent intent = new Intent();
+        intent.setClass(this,SuppressionActivity.class);
         this.startActivity(intent);
     }
 }
