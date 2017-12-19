@@ -93,7 +93,7 @@ public class HomeActivity extends AppCompatActivity {
                 HomeActivity.this.kcal = my_calories;
                 System.out.println(HomeActivity.this.kcal);
                 String calories = Integer.toString(nb_calories);
-                objectif.setText(kcal+" / " + calories + "Kcal");
+                objectif.setText(" Objectif " + calories + "Kcal");
 
                 graphView.setStatusCalories(my_calories);
 

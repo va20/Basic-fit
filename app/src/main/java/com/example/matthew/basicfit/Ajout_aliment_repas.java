@@ -92,7 +92,6 @@ public class Ajout_aliment_repas extends AppCompatActivity {
         b_ajouter = (Button) findViewById(R.id.b_ok);
 
 
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -130,6 +129,7 @@ public class Ajout_aliment_repas extends AppCompatActivity {
                                     Ajout_aliment_repas.this.rb_soir.isChecked()) {
                                 Ajout_aliment_repas.this.hour = timePicker.getHour();
                                 Ajout_aliment_repas.this.minute = timePicker.getMinute();
+
                                 r_dialog.cancel();
                             }
                         }
@@ -246,74 +246,77 @@ public class Ajout_aliment_repas extends AppCompatActivity {
 
         ContentValues contentValues = new ContentValues();
 
+        String mot_aliment = "";
         switch(view.getId()){
             case R.id.b_ok:
-                String mot_aliment = "";
+                if(rb_soir!=null || rb_midi !=null || rb_matin!=null){
 
-                if(checkEditText()) {
-                    mot_aliment = et_aliment.getEditableText().toString();
 
-                    String repas;
+                    if(checkEditText()) {
+                        mot_aliment = et_aliment.getEditableText().toString();
 
-                    if (rb_matin.isChecked()) {
-                        repas = "matin";
-                    } else if (rb_midi.isChecked()) {
-                        repas = "midi";
-                    }
-                    else {
-                        repas = "soir";
-                    }
+                        String repas;
 
-                    builder = new Uri.Builder();
+                        if (rb_matin.isChecked()) {
+                            repas = "matin";
+                        } else if (rb_midi.isChecked()) {
+                            repas = "midi";
+                        }
+                        else {
+                            repas = "soir";
+                        }
+
+                        builder = new Uri.Builder();
 
                 /*
                 * Il faudra prendre un aliment de la listView pour le rentrer dans la base de donnée.
                  */
 
-                    builder.scheme("content").authority(authority).appendPath(repas).build();
+                        builder.scheme("content").authority(authority).appendPath(repas).build();
 
-                    uri = builder.build();
+                        uri = builder.build();
 
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                    Date date = new Date();
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                        Date date = new Date();
 
-                    int grammes = 0;
+                        int grammes = 0;
 
-                    String string_gramme = et_gramme.getText().toString();
+                        String string_gramme = et_gramme.getText().toString();
 
-                    if (isNumeric(string_gramme)) {
-                        grammes  = calcul_calories(Integer.parseInt(string_gramme));
+                        if (isNumeric(string_gramme)) {
+                            grammes  = calcul_calories(Integer.parseInt(string_gramme));
 
-                        contentValues.put("date",dateFormat.format(date));
-                        contentValues.put("aliment", "Farine de sarrasin");
-                        contentValues.put("calories", grammes);
+                            contentValues.put("date",dateFormat.format(date));
+                            contentValues.put("aliment", "Farine de sarrasin");
+                            contentValues.put("calories", grammes);
 
-                        uri = contentResolver.insert(uri,contentValues);
+                            uri = contentResolver.insert(uri,contentValues);
 
-                        Uri uri_calories;
+                            Uri uri_calories;
 
-                        Uri.Builder builder1 = new Uri.Builder();
+                            Uri.Builder builder1 = new Uri.Builder();
 
-                        uri_calories = builder1.scheme("content").authority(authority).appendPath("moi").appendPath("calories").build();
+                            uri_calories = builder1.scheme("content").authority(authority).appendPath("moi").appendPath("calories").build();
 
-                        contentValues = new ContentValues();
+                            contentValues = new ContentValues();
 
-                        int new_grammes = grammes + getCalorie("Farine de sarrasin"); // A RETIRER
+                            int new_grammes = grammes + getCalorie("Farine de sarrasin"); // A RETIRER
 
-                        contentValues.put("calories", new_grammes);
+                            contentValues.put("calories", new_grammes);
 
-                        contentResolver.update(uri_calories, contentValues, "calories = ?", new String[]{"calories"});
+                            contentResolver.update(uri_calories, contentValues, "calories = ?", new String[]{"calories"});
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(), "vous n'avez pas rentré une valeur correct", Toast.LENGTH_SHORT);
+                        }
                     }
                     else {
-                        Toast.makeText(getApplicationContext(), "vous n'avez pas rentré une valeur correct", Toast.LENGTH_SHORT);
+                        Toast.makeText(getApplicationContext(), "Vous devez rentrer un aliment", Toast.LENGTH_SHORT);
                     }
-                }
-                else {
-                    Toast.makeText(getApplicationContext(), "Vous devez rentrer un aliment", Toast.LENGTH_SHORT);
-                }
 
-                this.et_aliment.setText("");
-                this.et_gramme.setText("");
+                    this.et_aliment.setText("");
+                    //this.et_gramme.setText("");
+                }
                 break;
 
             case R.id.b_chercher:
