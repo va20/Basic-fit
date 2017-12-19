@@ -281,16 +281,14 @@ public class Ajout_aliment_repas extends AppCompatActivity {
 
                     uri = builder.build();
 
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                     Date date = new Date();
 
                     int grammes = 0;
 
                     String string_gramme = et_gramme.getText().toString();
-                        System.out.println("FARINE FARINE FARINE 1");
 
                     if (isNumeric(string_gramme)) {
-                        System.out.println("FARINE FARINE FARINE 2");
                         grammes  = calcul_calories(Integer.parseInt(string_gramme));
 
                         contentValues.put("date",dateFormat.format(date));
