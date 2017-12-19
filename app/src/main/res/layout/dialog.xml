@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@android:style/Theme.Material.Dialog.Alert"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -16,22 +18,22 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <RadioButton android:id="@+id/radio_matin"
+            <RadioButton
+                android:id="@+id/radio_matin"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginRight="50dp"
-                android:textStyle="bold"
                 android:text="matin"
-                />
+                android:textStyle="bold" />
 
 
-            <RadioButton android:id="@+id/radio_midi"
+            <RadioButton
+                android:id="@+id/radio_midi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
                 android:layout_marginRight="50dp"
                 android:text="midi"
-                />
+                android:textStyle="bold" />
 
 
             <RadioButton
@@ -47,24 +49,38 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/b_ajout"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"
-        android:layout_gravity="center"
-        android:background="@color/colorPrimaryDark"
-        android:text="Ajouter"
-        android:textColor="@android:color/white" />
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/b_annuler"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:background="@color/colorPrimaryDark"
-        android:text="Annuler"
-        android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/b_ajout"
+            style="@android:style/Theme.Material.Dialog.Alert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="170dp"
+            android:layout_marginTop="20dp"
+            android:background="@android:color/transparent"
+            android:text="Ajouter"
+            android:textColor="@color/colorPrimaryDark"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/b_annuler"
+            style="@android:style/Theme.Material.Dialog.Alert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/transparent"
+            android:text="Annuler"
+            android:textColor="@color/colorPrimaryDark"
+            tools:visibility="visible" />
+
+    </LinearLayout>
 </LinearLayout>

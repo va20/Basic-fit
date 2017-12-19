@@ -25,9 +25,8 @@
 
         <activity android:name=".Ajout_aliment_repas" />
         <activity android:name=".ProfileActivity" />
-        <activity
-            android:name=".HomeActivity"
-            android:label="@string/title_activity_home"></activity>
+        <activity android:name=".HomeActivity"/>
+
     </application>
 
 </manifest>

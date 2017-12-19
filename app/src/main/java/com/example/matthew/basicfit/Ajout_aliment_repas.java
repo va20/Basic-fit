@@ -73,6 +73,7 @@ public class Ajout_aliment_repas extends AppCompatActivity {
         authority = getResources().getString(R.string.authority);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setSelectedItemId(R.id.home);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         listView = (ListView) findViewById(R.id.list);
@@ -312,7 +313,8 @@ public class Ajout_aliment_repas extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Vous devez rentrer un aliment", Toast.LENGTH_SHORT);
                 }
 
-
+                this.et_aliment.setText("");
+                this.et_gramme.setText("");
                 break;
 
             case R.id.b_chercher:

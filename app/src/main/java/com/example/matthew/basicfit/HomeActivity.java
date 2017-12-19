@@ -56,6 +56,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setSelectedItemId(R.id.home);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         authority = getResources().getString(R.string.authority);
@@ -95,7 +96,7 @@ public class HomeActivity extends AppCompatActivity {
         int nb_calories = pref.getInt("caloriesSaved", 0);
         String calories = Integer.toString(nb_calories);
         nom.setText("Hey " + nomSaved + " !");
-        this.objectif.setText("Objectif du jour " + calories + "Kcal");
+        this.objectif.setText("/" + calories + "Kcal");
 
     }
 

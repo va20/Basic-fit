@@ -42,6 +42,7 @@ public class ProfileActivity extends AppCompatActivity {
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
+
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
@@ -63,8 +64,13 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         authority = getResources().getString(R.string.authority);
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setSelectedItemId(R.id.settings);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+
+
         this.import_cvs = (Button) findViewById(R.id.b_import);
         this.ajouter = (Button) findViewById(R.id.b_ok);
         this.bdd_aliment = (EditText) findViewById(R.id.bdd_aliment);
@@ -161,6 +167,8 @@ public class ProfileActivity extends AppCompatActivity {
             Log.d("TOAST: ", "DANS LE ELSE");
             Toast.makeText(getApplicationContext(), "Les champs ne sont pas correctement remplis", Toast.LENGTH_SHORT).show();
         }
+        this.bdd_aliment.setText("");
+        this.b_calories.setText("");
 
     }
 
