@@ -46,6 +46,9 @@ public class HomeActivity extends AppCompatActivity {
                     return true;
                 case R.id.home:
                     return true;
+                case R.id.supprimer_aliment:
+                    intent_supp();
+                    return true;
             }
             return false;
         }
@@ -201,6 +204,12 @@ public class HomeActivity extends AppCompatActivity {
         intent = new Intent();
         intent.setClass(this, ProfileActivity.class);
         this.startActivity(this.intent);
+    }
+
+    public void intent_supp(){
+        Intent intent = new Intent();
+        intent.setClass(this,SuppressionActivity.class);
+        this.startActivity(intent);
     }
 
 }

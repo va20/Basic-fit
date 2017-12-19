@@ -40,6 +40,7 @@
             android:autoText="false"
             android:ems="10"
             android:inputType="textPersonName"
+            android:maxLength="10"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             tools:layout_editor_absoluteX="152dp"
             tools:layout_editor_absoluteY="114dp" />
@@ -75,6 +76,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="numberDecimal"
+            android:maxLength="7"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             tools:layout_editor_absoluteX="152dp"
             tools:layout_editor_absoluteY="196dp" />

@@ -54,6 +54,10 @@ public class ProfileActivity extends AppCompatActivity {
                 case R.id.home:
                     intent_home();
                     return true;
+
+                case R.id.supprimer_aliment:
+                    intent_supp();
+                    return true;
             }
             return false;
         }
@@ -80,6 +84,10 @@ public class ProfileActivity extends AppCompatActivity {
         int nb_calories = pref.getInt("caloriesSaved",0);
         this.objectif.setText(Integer.toString(nb_calories));
 
+
+    }
+
+    public void supprimer_aliment(View view){
 
     }
 
@@ -223,6 +231,12 @@ public class ProfileActivity extends AppCompatActivity {
     public void intent_home(){
         Intent intent= new Intent();
         intent.setClass(this,HomeActivity.class);
+        this.startActivity(intent);
+    }
+
+    public void intent_supp(){
+        Intent intent = new Intent();
+        intent.setClass(this,SuppressionActivity.class);
         this.startActivity(intent);
     }
 }
