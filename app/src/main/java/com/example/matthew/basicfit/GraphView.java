@@ -3,7 +3,9 @@ package com.example.matthew.basicfit;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.DashPathEffect;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -19,11 +21,14 @@ import java.util.TreeMap;
 
 public class GraphView extends View {
 
-    private Paint paint,paint1,paint2;
+    private Paint paint,paint1,paint2,paint3;
     private int kcal = 3000;
     private static String authority;
+    private int Objectif;
+    private int status_calories;
 
     private int size;
+
     private Map<String, String> graph;
 
     public GraphView(Context context, AttributeSet attrs) {
@@ -44,12 +49,15 @@ public class GraphView extends View {
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint1 = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint2 = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint3 = new Paint(Paint.ANTI_ALIAS_FLAG);
 
         paint.setStyle(Paint.Style.FILL);
         paint.setTextSize(30f);
         paint.setStrokeWidth(5);
         paint1.setStyle(Paint.Style.FILL);
-        paint1.setColor(Color.RED);
+        paint2.setTextSize(20f);
+        paint1.setColor(Color.BLACK);
+        Objectif = 0;
 
 
         authority = getResources().getString(R.string.authority);
@@ -59,6 +67,37 @@ public class GraphView extends View {
         graph.clear();
         graph.putAll(coord);
         invalidate();
+    }
+
+    public void setStatusCalories(int calories) {
+        this.status_calories = calories;
+    }
+
+    public int getPourcentageObjectif() {
+        return (status_calories / Objectif)*100;
+    }
+
+    /*
+    * modifie la valeur de maximum kcal du graph.
+    * @param kcal valeur du nombre de kcal que l'on veut.
+     */
+
+    public void setObjectif(int objectif) {
+        this.Objectif = objectif;
+    }
+
+    public void drawObjectif(Canvas canvas) {
+
+        float coehf = (float) canvas.getHeight() / kcal;
+
+        paint3.setARGB(255,0,191,255);
+        paint3.setStyle(Paint.Style.STROKE);
+        paint3.setPathEffect(new DashPathEffect(new float[] {20,10}, 0));
+
+        Path path = new Path();
+        path.moveTo(0,yToOrigine(Objectif*coehf));
+        path.lineTo(canvas.getWidth(),yToOrigine(Objectif*coehf));
+        canvas.drawPath(path,paint3);
     }
 
 
@@ -75,7 +114,7 @@ public class GraphView extends View {
 
         for(int i = 0; i < 24; i++) {
             if (i % 2 == 0) {
-                canvas.drawText(""+i+"h",i*coef+50,20,paint);
+                canvas.drawText(""+i+"h",i*coef+50,20,paint2);
                 canvas.drawLine(i*coef+50,yToOrigine(i),i*coef+50,yToOrigine(getHeight()),paint2);
 
             }
@@ -88,9 +127,9 @@ public class GraphView extends View {
         float coehf = (float) canvas.getHeight() / kcal;
 
         for (int i = 0; i < kcal ; i++) {
-            if (i % ((int)(1000*coehf)) == 0) {
-                canvas.drawText(""+i,0,yToOrigine(i*coehf),paint);
-                canvas.drawLine(0,yToOrigine(i*coehf),canvas.getWidth(),yToOrigine(i*coehf),paint2);
+            if (i % ((int)(2000*coehf)) == 0) {
+                canvas.drawText(""+i,0,yToOrigine(i*coehf),paint2);
+                canvas.drawLine(50,yToOrigine(i*coehf),canvas.getWidth(),yToOrigine(i*coehf),paint2);
             }
         }
     }
@@ -101,6 +140,8 @@ public class GraphView extends View {
 
     @Override
     public void onDraw(Canvas canvas) {
+
+        drawObjectif(canvas);
 
         drawGraphparametersX(canvas);
 
@@ -126,6 +167,15 @@ public class GraphView extends View {
 
             x2 = (heure)*coefw+50;
             y2 = yToOrigine(calories*coefh);
+
+            if (getPourcentageObjectif() >= 0 && getPourcentageObjectif() < 30) {
+                paint.setColor(Color.RED);
+            } else if (getPourcentageObjectif() >= 30 && getPourcentageObjectif() < 60) {
+                paint.setColor(Color.argb(255,255,153,0));
+            }
+            else {
+                paint.setColor(Color.GREEN);
+            }
 
             canvas.drawLine(x1,y1,x2,y2,paint);
             canvas.drawCircle(x2,y2,15,paint1);

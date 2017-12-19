@@ -30,6 +30,7 @@ public class HomeActivity extends AppCompatActivity {
     private Spinner jours_spinner;
     private GraphView graphView;
     private String authority;
+    private int kcal;
 
     private Intent intent;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -78,6 +79,8 @@ public class HomeActivity extends AppCompatActivity {
 
                 TreeMap<String, String> treeMap = getKcalMeal(adapterView.getSelectedItem().toString());
                 graphView.setMap(treeMap);
+                int my_calories = getMyCalories(adapterView.getSelectedItem().toString());
+                graphView.setStatusCalories(my_calories);
 
                 for (String s : treeMap.keySet()) {
                     Log.e("TREEMAP ", s + ": " + treeMap.get(s));
@@ -93,10 +96,36 @@ public class HomeActivity extends AppCompatActivity {
         SharedPreferences pref = getSharedPreferences("save", Context.MODE_PRIVATE);
         String nomSaved = pref.getString("nomSaved", "");
         int nb_calories = pref.getInt("caloriesSaved", 0);
+        graphView.setObjectif(nb_calories);
         String calories = Integer.toString(nb_calories);
         nom.setText("Hey " + nomSaved + " !");
         this.objectif.setText("Objectif du jour " + calories + "Kcal");
 
+    }
+
+
+    public int getMyCalories(String date) {
+        ContentResolver contentResolver = getContentResolver();
+
+        Uri.Builder builder = new Uri.Builder();
+
+        Uri uri = builder.scheme("content").authority(authority).appendPath("moi").appendPath("calories").build();
+
+        String[] projection = {AlimentContentProvider.STRING_CALORIES};
+
+        String[] args = {date+"%"};
+
+        String date_string = "date = ?";
+
+        Cursor cursor = contentResolver.query(uri, projection, date_string ,args, AlimentContentProvider.STRING_CALORIES+" DESC");
+
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                Log.d("CALORIIIIIIE ", String.valueOf(cursor.getColumnIndex(AlimentContentProvider.STRING_CALORIES)));
+                return cursor.getColumnIndex(AlimentContentProvider.STRING_CALORIES);
+            }
+        }
+        return 0;
     }
 
     public TreeMap<String,String> getKcalMeal(String date) {
@@ -156,6 +185,8 @@ public class HomeActivity extends AppCompatActivity {
 
         return treeMap;
     }
+
+
 
     public ArrayList<String> getDate(){
         ArrayList<String> liste_date = new ArrayList<>();

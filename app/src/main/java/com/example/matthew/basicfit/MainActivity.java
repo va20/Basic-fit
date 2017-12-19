@@ -57,10 +57,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void b_aliment(View view) {
+    /*public void b_aliment(View view) {
         Intent iii = new Intent(getApplicationContext(),Ajout_aliment.class);
         startActivity(iii);
-    }
+    }*/
 
     public void b_manger(View view) {
         Intent iii = new Intent(getApplicationContext(), Ajout_aliment_repas.class);

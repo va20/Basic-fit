@@ -39,8 +39,9 @@ public class AlimentContentProvider extends ContentProvider {
     private final static int SOIR_ALIMENT = 14;
     private final static int SOIR_DATE = 15;
     private final static int SOIR_CALORIES = 16;
-    private final static int MOI_CALORIE = 17;
-    private final static int MOI_DATE = 18;
+    private final static int MOI = 17;
+    private final static int MOI_CALORIE = 18;
+    private final static int MOI_DATE = 19;
 
 
     final static String STRING_ALIMENT = "aliment";
@@ -78,6 +79,7 @@ public class AlimentContentProvider extends ContentProvider {
         matcher.addURI(authority,"soir/calories",SOIR_CALORIES);
         matcher.addURI(authority, "moi/calories", MOI_CALORIE);
         matcher.addURI(authority, "moi/date", MOI_DATE);
+        matcher.addURI(authority, "moi", MOI);
     }
 
     public AlimentContentProvider() {
@@ -101,6 +103,10 @@ public class AlimentContentProvider extends ContentProvider {
         switch (code) {
             case ALIMENT:
                 cursor = db.query(STRING_TABLE_ALIMENT,strings,s,strings1,null,null,s1 );
+                break;
+
+            case MOI_CALORIE:
+                cursor = db.query(STRING_TABLE_MOI, strings, s , strings1, null, null,s1 );
                 break;
 
             case MATIN:

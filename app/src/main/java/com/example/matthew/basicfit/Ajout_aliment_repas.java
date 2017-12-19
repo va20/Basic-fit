@@ -292,8 +292,6 @@ public class Ajout_aliment_repas extends AppCompatActivity {
 
                         Uri.Builder builder1 = new Uri.Builder();
 
-                        String slash = "/";
-
                         uri_calories = builder1.scheme("content").authority(authority).appendPath("moi").appendPath("calories").build();
 
                         contentValues = new ContentValues();
