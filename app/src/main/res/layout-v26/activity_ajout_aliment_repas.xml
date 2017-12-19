@@ -28,9 +28,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textSize="18sp"
-                android:textStyle="bold"
                 android:text="Aliment:" />
 
             <EditText
@@ -46,9 +43,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textSize="18sp"
-                android:textStyle="bold"
                 android:text="g" />
         </LinearLayout>
 
@@ -74,11 +68,11 @@
                 android:id="@+id/b_ok"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="ok"
-                android:text="AJOUTER AU REPAS"
                 android:backgroundTint="@color/colorPrimary"
                 android:defaultFocusHighlightEnabled="true"
+                android:onClick="ok"
                 android:shadowColor="@android:color/holo_blue_light"
+                android:text="AJOUTER AU REPAS"
                 android:textAppearance="@style/TextAppearance.AppCompat.Button"
                 android:textColor="?android:attr/colorBackground"
                 android:visibility="visible" />

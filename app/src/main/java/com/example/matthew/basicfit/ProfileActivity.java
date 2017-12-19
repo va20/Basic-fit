@@ -1,5 +1,6 @@
 package com.example.matthew.basicfit;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,6 +10,7 @@ import android.content.res.AssetManager;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -163,26 +165,44 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void modifier(View view){
-        ViewSwitcher viewSwitcher = (ViewSwitcher) findViewById(R.id.switch_edit_text);
-        EditText change_nb_calories = (EditText) findViewById(R.id.change_nb_calories);
-        TextView nb_cal = (TextView) findViewById(R.id.nb_cal);
-        if(viewSwitcher.getCurrentView()==change_nb_calories){
-            if(!change_nb_calories.getText().toString().equals("")){
-                int cal_tmp=Integer.parseInt(change_nb_calories.getText().toString());
-                nb_cal.setText(change_nb_calories.getText().toString());
-                SharedPreferences prefs = getSharedPreferences("save", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putInt("caloriesSaved",cal_tmp);
-                editor.apply();
-                viewSwitcher.showPrevious();
+        AlertDialog.Builder repas_dialog = new AlertDialog.Builder(ProfileActivity.this);
+        View view1 = getLayoutInflater().inflate(R.layout.dialog_modif,null);
+        Button ok = (Button) view1.findViewById(R.id.b_modif_ok);
+        Button annuler = (Button) view1.findViewById(R.id.b_modif_annul);
+        TextView text_ckal= (TextView) view1.findViewById(R.id.kcal_text);
+        final EditText edit_kcal = (EditText) view1.findViewById(R.id.edit_kcal);
+
+        repas_dialog.setView(view1);
+
+        final AlertDialog r_dialog = repas_dialog.create();
+
+        r_dialog.show();
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!edit_kcal.getText().toString().equals("")){
+                    ProfileActivity.this.objectif.setText(edit_kcal.getText().toString());
+                    int cal_tmp=Integer.parseInt(ProfileActivity.this.objectif.getText().toString());
+                    SharedPreferences prefs = getSharedPreferences("save", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putInt("caloriesSaved",cal_tmp);
+                    editor.apply();
+                    r_dialog.cancel();
+                }
+                else{
+                    r_dialog.cancel();
+                }
             }
-            else{
-                viewSwitcher.showPrevious();
+        });
+
+        annuler.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                r_dialog.cancel();
             }
-        }
-        else if(viewSwitcher.getCurrentView()==nb_cal){
-            viewSwitcher.showNext();
-        }
+        });
+
     }
 
     public void intent_add(){

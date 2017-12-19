@@ -17,114 +17,178 @@
         app:layout_constraintRight_toRightOf="parent"
         app:menu="@menu/navigation" />
 
+    <Button
+        android:id="@+id/b_import"
+        android:layout_width="382dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="18dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginTop="161dp"
+        android:layout_weight="1"
+        android:backgroundTint="@color/colorPrimary"
+        android:defaultFocusHighlightEnabled="true"
+        android:onClick="importCvs"
+        android:shadowColor="@android:color/holo_blue_light"
+        android:text="IMPORTER CVS"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:textColor="?android:attr/colorBackground"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+
     <LinearLayout
-        android:id="@+id/layout_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:id="@+id/linearLayout4"
+        android:layout_width="175dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="68dp"
+        android:layout_marginEnd="104dp"
+        android:layout_marginStart="105dp"
+        android:layout_marginTop="32dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/modif_objectif">
 
-        <Button
-            android:id="@+id/b_import"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="importCvs"
-            android:text="IMPORTER CVS" />
+            android:text="AJOUTER UN ALIMENT :"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
-        <LinearLayout
+        <EditText
+            android:id="@+id/bdd_aliment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="AJOUTER UN ALIMENT :" />
-
-            <EditText
-                android:id="@+id/bdd_aliment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Calories: " />
-
-            <EditText
-                android:id="@+id/b_calorie"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"/>
-
-        </LinearLayout>
-        <Button
-            android:id="@+id/b_ok"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="AJOUTER"
-            android:onClick="add" />
-
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/objectif"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Mon objectif : "
-                tools:layout_editor_absoluteX="35dp"
-                tools:layout_editor_absoluteY="196dp"
-                tools:ignore="MissingConstraints" />
-            <ViewSwitcher
-                android:id="@+id/switch_edit_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/nb_cal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"
-                    android:inputType="number"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-                <EditText
-                    android:id="@+id/change_nb_calories"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    />
-
-            </ViewSwitcher>
-
-            <TextView
-                android:id="@+id/calParJour"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="  Kcal/Jour"
-                tools:layout_editor_absoluteX="35dp"
-                tools:layout_editor_absoluteY="196dp"
-                tools:ignore="MissingConstraints" />
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/modif_objectif"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Modifier mon objectif"
-            android:onClick="modifier"
-            />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.399">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Calories: "
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+        <EditText
+            android:id="@+id/b_calorie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/b_ok"
+        android:layout_width="88dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="96dp"
+        android:layout_marginEnd="148dp"
+        android:layout_marginStart="148dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:defaultFocusHighlightEnabled="true"
+        android:onClick="add"
+        android:shadowColor="@android:color/holo_blue_light"
+        android:text="AJOUTER"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:textColor="?android:attr/colorBackground"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/b_import"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="217dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="83dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/modif_objectif"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/objectif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mon objectif : "
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="35dp"
+            tools:layout_editor_absoluteY="196dp" />
+
+        <ViewSwitcher
+            android:id="@+id/switch_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/nb_cal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text="TextView"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+            <EditText
+                android:id="@+id/change_nb_calories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+        </ViewSwitcher>
+
+        <TextView
+            android:id="@+id/calParJour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  Kcal/Jour"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="35dp"
+            tools:layout_editor_absoluteY="196dp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/modif_objectif"
+        android:layout_width="190dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="97dp"
+        android:layout_marginStart="97dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:defaultFocusHighlightEnabled="true"
+        android:onClick="modifier"
+        android:shadowColor="@android:color/holo_blue_light"
+        android:text="Modifier mon objectif"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:textColor="?android:attr/colorBackground"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 </android.support.constraint.ConstraintLayout>
 

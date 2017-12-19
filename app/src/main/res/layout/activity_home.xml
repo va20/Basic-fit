@@ -11,19 +11,24 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/textnom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Hello World!"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:padding="@dimen/activity_horizontal_margin" />
 
 
             <TextView
@@ -31,7 +36,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:padding="@dimen/activity_horizontal_margin"
                 android:text="Hello World!"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -39,24 +48,24 @@
             <Spinner
                 android:id="@+id/jours_spinner"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                />
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="264dp"
             android:orientation="horizontal">
 
             <com.example.matthew.basicfit.GraphView
                 android:id="@+id/graphview"
                 android:layout_width="match_parent"
-                android:layout_height="392dp"
-                android:layout_marginBottom="70dip"
+                android:layout_height="248dp"
+                android:layout_marginBottom="50dip"
                 android:fadingEdge="vertical"
-                android:padding="10dip"
+                android:padding="100dip"
+                android:paddingBottom="100dip"
                 android:scrollbars="vertical" />
 
         </LinearLayout>

@@ -8,8 +8,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".AccueilActivity">
+        android:theme="@style/AppTheme.">
+        <activity android:name=".AccueilActivity" android:theme="@style/AppTheme.">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,8 +23,6 @@
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".Ajout_aliment" />
-        <activity android:name=".MainActivity" />
         <activity android:name=".Ajout_aliment_repas" />
         <activity android:name=".ProfileActivity" />
         <activity
