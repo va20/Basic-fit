@@ -80,12 +80,9 @@ public class SuppressionActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                System.out.println(position);
                 String repas="";
                 String calorie="";
                 Cursor cur = (Cursor)listAdapter.getItem(position);
-                System.out.println(cur.getString(cur.getColumnIndex(AlimentContentProvider.STRING_ALIMENT)));
-                System.out.println(cur.getString(cur.getColumnIndex(AlimentContentProvider.STRING_CALORIES)));
                 repas=cur.getString(cur.getColumnIndex(AlimentContentProvider.STRING_ALIMENT));
                 calorie=cur.getString(cur.getColumnIndex(AlimentContentProvider.STRING_CALORIES));
                 bdd_aliment.setText(repas);

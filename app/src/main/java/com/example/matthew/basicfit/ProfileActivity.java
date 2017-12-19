@@ -134,7 +134,6 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                 }
 
-                System.out.println(i++);
             }
 
         } catch (FileNotFoundException e) {

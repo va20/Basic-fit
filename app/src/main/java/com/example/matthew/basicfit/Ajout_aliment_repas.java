@@ -96,55 +96,52 @@ public class Ajout_aliment_repas extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                System.out.println(position);
                 String repas="";
                 String calorie="";
                 Cursor cur = (Cursor)listAdapter.getItem(position);
-                System.out.println(cur.getString(cur.getColumnIndex(AlimentContentProvider.STRING_ALIMENT)));
-                System.out.println(cur.getString(cur.getColumnIndex(AlimentContentProvider.STRING_CALORIES)));
                 repas=cur.getString(cur.getColumnIndex(AlimentContentProvider.STRING_ALIMENT));
                 calorie=cur.getString(cur.getColumnIndex(AlimentContentProvider.STRING_CALORIES));
                 et_aliment.setText(repas);
-                et_gramme.setText(calorie);
+                if(!et_gramme.getText().toString().equals("")) {
+                    AlertDialog.Builder repas_dialog = new AlertDialog.Builder(Ajout_aliment_repas.this);
+                    View view1 = getLayoutInflater().inflate(R.layout.dialog, null);
+                    Ajout_aliment_repas.this.rb_matin = (RadioButton) view1.findViewById(R.id.radio_matin);
+                    Ajout_aliment_repas.this.rb_midi = (RadioButton) view1.findViewById(R.id.radio_midi);
+                    Ajout_aliment_repas.this.rb_soir = (RadioButton) view1.findViewById(R.id.radio_soir);
+                    Button ok = (Button) view1.findViewById(R.id.b_ajout);
+                    Button annuler = (Button) view1.findViewById(R.id.b_annuler);
 
-                AlertDialog.Builder repas_dialog = new AlertDialog.Builder(Ajout_aliment_repas.this);
-                View view1 = getLayoutInflater().inflate(R.layout.dialog,null);
-                Ajout_aliment_repas.this.rb_matin = (RadioButton) view1.findViewById(R.id.radio_matin);
-                Ajout_aliment_repas.this.rb_midi = (RadioButton) view1.findViewById(R.id.radio_midi);
-                Ajout_aliment_repas.this.rb_soir = (RadioButton) view1.findViewById(R.id.radio_soir);
-                Button ok = (Button) view1.findViewById(R.id.b_ajout);
-                Button annuler = (Button) view1.findViewById(R.id.b_annuler);
+                    repas_dialog.setView(view1);
 
-                repas_dialog.setView(view1);
+                    Ajout_aliment_repas.this.timePicker = (TimePicker) view1.findViewById(R.id.timePicker);
+                    timePicker.setIs24HourView(true);
 
-                Ajout_aliment_repas.this.timePicker = (TimePicker) view1.findViewById(R.id.timePicker);
-                timePicker.setIs24HourView(true);
+                    Ajout_aliment_repas.this.hour = timePicker.getHour();
+                    Ajout_aliment_repas.this.minute = timePicker.getMinute();
 
-                Ajout_aliment_repas.this.hour = timePicker.getHour();
-                Ajout_aliment_repas.this.minute = timePicker.getMinute();
+                    final AlertDialog r_dialog = repas_dialog.create();
+                    r_dialog.show();
 
-                final AlertDialog r_dialog = repas_dialog.create();
-                r_dialog.show();
+                    ok.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (Ajout_aliment_repas.this.rb_matin.isChecked() ||
+                                    Ajout_aliment_repas.this.rb_midi.isChecked() ||
+                                    Ajout_aliment_repas.this.rb_soir.isChecked()) {
+                                Ajout_aliment_repas.this.hour = timePicker.getHour();
+                                Ajout_aliment_repas.this.minute = timePicker.getMinute();
+                                r_dialog.cancel();
+                            }
+                        }
+                    });
 
-                ok.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if(Ajout_aliment_repas.this.rb_matin.isChecked()||
-                                Ajout_aliment_repas.this.rb_midi.isChecked() ||
-                                Ajout_aliment_repas.this.rb_soir.isChecked()){
-                            Ajout_aliment_repas.this.hour = timePicker.getHour();
-                            Ajout_aliment_repas.this.minute = timePicker.getMinute();
+                    annuler.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
                             r_dialog.cancel();
                         }
-                    }
-                });
-
-                annuler.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        r_dialog.cancel();
-                    }
-                });
+                    });
+                }
             }
         });
     }
@@ -251,7 +248,6 @@ public class Ajout_aliment_repas extends AppCompatActivity {
 
         switch(view.getId()){
             case R.id.b_ok:
-                System.out.println("LA FARINE");
                 String mot_aliment = "";
 
                 if(checkEditText()) {
@@ -261,13 +257,10 @@ public class Ajout_aliment_repas extends AppCompatActivity {
 
                     if (rb_matin.isChecked()) {
                         repas = "matin";
-                        System.out.println("matin");
                     } else if (rb_midi.isChecked()) {
                         repas = "midi";
-                        System.out.println("midi");
                     }
                     else {
-                        System.out.println("soir");
                         repas = "soir";
                     }
 

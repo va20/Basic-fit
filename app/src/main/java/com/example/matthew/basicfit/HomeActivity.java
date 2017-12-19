@@ -71,6 +71,12 @@ public class HomeActivity extends AppCompatActivity {
 
         graphView = (GraphView) findViewById(R.id.graphview);
 
+        SharedPreferences pref = getSharedPreferences("save", Context.MODE_PRIVATE);
+        String nomSaved = pref.getString("nomSaved", "");
+        final int nb_calories = pref.getInt("caloriesSaved", 0);
+        graphView.setObjectif(nb_calories);
+        nom.setText("Hey " + nomSaved + " !");
+
         ArrayList<String> list = getDate();
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, list);
@@ -84,6 +90,11 @@ public class HomeActivity extends AppCompatActivity {
                 TreeMap<String, String> treeMap = getKcalMeal(adapterView.getSelectedItem().toString());
                 graphView.setMap(treeMap);
                 int my_calories = getMyCalories(adapterView.getSelectedItem().toString());
+                HomeActivity.this.kcal = my_calories;
+                System.out.println(HomeActivity.this.kcal);
+                String calories = Integer.toString(nb_calories);
+                objectif.setText(kcal+" / " + calories + "Kcal");
+
                 graphView.setStatusCalories(my_calories);
 
                 for (String s : treeMap.keySet()) {
@@ -97,13 +108,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        SharedPreferences pref = getSharedPreferences("save", Context.MODE_PRIVATE);
-        String nomSaved = pref.getString("nomSaved", "");
-        int nb_calories = pref.getInt("caloriesSaved", 0);
-        graphView.setObjectif(nb_calories);
-        String calories = Integer.toString(nb_calories);
-        nom.setText("Hey " + nomSaved + " !");
-        this.objectif.setText("/" + calories + "Kcal");
+
 
     }
 
