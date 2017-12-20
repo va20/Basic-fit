@@ -26,7 +26,10 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -155,8 +158,8 @@ public class Ajout_aliment_repas extends AppCompatActivity {
     * @return nombre de calories pour 100g
      */
 
-    public int calcul_calories(int gramme) {
-        return gramme*20;
+    public int calcul_calories(int gramme,String aliment) {
+        return getCalorie(aliment)*gramme/100;
     }
 
 
@@ -228,6 +231,42 @@ public class Ajout_aliment_repas extends AppCompatActivity {
     }
 
 
+    public int getCalorie(){
+
+        ContentResolver contentResolver = getContentResolver();
+
+        int rep = 0;
+
+        Uri uri_calories;
+
+        Uri.Builder builder1 = new Uri.Builder();
+
+        uri_calories = builder1.scheme("content").authority(authority).appendPath("moi").build();
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+
+        String string_date = dateFormat.format(date);
+
+
+
+        Cursor cursor = contentResolver.query(uri_calories, new String[]{AlimentContentProvider.STRING_CALORIES}, "date LIKE ?", new String[]{string_date+"%"}, null);
+
+        if (cursor != null) {
+
+            System.out.println("NON NULL "+string_date);
+
+            while(cursor.moveToNext()) {
+               rep = Integer.parseInt(cursor.getString(cursor.getColumnIndex(AlimentContentProvider.STRING_CALORIES)));
+            }
+        }
+        else {
+            return rep;
+        }
+        return rep;
+    }
+
+
     /*
     * Action des buttons de l'activité Ajout_aliment_repas.
     *
@@ -282,18 +321,26 @@ public class Ajout_aliment_repas extends AppCompatActivity {
                     uri = builder.build();
 
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                    Date date = new Date();
+
+                    Calendar cal = Calendar.getInstance();
+
+                    cal.set(Calendar.HOUR_OF_DAY,hour);
+                    cal.set(Calendar.MINUTE,minute);
+
+                    Date date = cal.getTime();
 
                     int grammes = 0;
 
                     String string_gramme = et_gramme.getText().toString();
 
                     if (isNumeric(string_gramme)) {
-                        grammes  = calcul_calories(Integer.parseInt(string_gramme));
+                        grammes  = calcul_calories(Integer.parseInt(string_gramme),mot_aliment);
+
+                        System.out.println("GRAAAMMMMMEEEE "+grammes);
 
                         contentValues.put("date",dateFormat.format(date));
-                        contentValues.put("aliment", "Farine de sarrasin");
-                        contentValues.put("calories", grammes);
+                        contentValues.put("aliment", et_aliment.getText().toString());
+                        contentValues.put("calories", string_gramme);
 
                         uri = contentResolver.insert(uri,contentValues);
 
@@ -301,15 +348,20 @@ public class Ajout_aliment_repas extends AppCompatActivity {
 
                         Uri.Builder builder1 = new Uri.Builder();
 
-                        uri_calories = builder1.scheme("content").authority(authority).appendPath("moi").appendPath("calories").build();
+                        uri_calories = builder1.scheme("content").authority(authority).appendPath("moi").build();
 
                         contentValues = new ContentValues();
 
-                        int new_grammes = grammes + getCalorie("Farine de sarrasin"); // A RETIRER
+                        int new_grammes = grammes + getCalorie(); // A RETIRER
+
+                        System.out.println("GRAMME: "+grammes+" ET NEW_GRAMMES: "+new_grammes);
 
                         contentValues.put("calories", new_grammes);
+                        contentValues.put("date", dateFormat.format(date));
 
-                        contentResolver.update(uri_calories, contentValues, "calories = ?", new String[]{"calories"});
+                        System.out.println("URIIIII "+uri_calories.toString());
+
+                        contentResolver.insert(uri_calories, contentValues);
                     }
                     else {
                         Toast.makeText(getApplicationContext(), "vous n'avez pas rentré une valeur correct", Toast.LENGTH_SHORT);

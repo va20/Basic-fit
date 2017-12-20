@@ -45,6 +45,7 @@ public class AlimentContentProvider extends ContentProvider {
 
 
     final static String STRING_ALIMENT = "aliment";
+    final static String STRING_MOI = "moi";
     final static String STRING_MATIN = "matin";
     final static String STRING_MIDI = "midi";
     final static String STRING_SOIR = "soir";
@@ -109,6 +110,10 @@ public class AlimentContentProvider extends ContentProvider {
                 cursor = db.query(STRING_TABLE_MOI, strings, s , strings1, null, null,s1 );
                 break;
 
+            case MOI:
+                cursor = db.query(STRING_TABLE_MOI, strings, s , strings1, null, null,s1 );
+                break;
+
             case MATIN:
                 cursor = db.query(STRING_TABLE_MATIN, strings, s, strings1, null, null, s1);
                 break;
@@ -148,6 +153,11 @@ public class AlimentContentProvider extends ContentProvider {
             case ALIMENT:
                 id = db.insert(STRING_TABLE_ALIMENT, null, contentValues);
                 path = STRING_ALIMENT;
+                break;
+
+            case MOI:
+                id = db.insert(STRING_TABLE_MOI, null, contentValues);
+                path = STRING_MOI;
                 break;
 
             case MATIN:
